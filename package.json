@@ -1,0 +1,8 @@
+{
+    "name": "Luna",
+    "version": "0.0.1",
+    "scripts": {
+        "postinstall": "bower install",
+        "start": "gulp dev"
+    }
+}
