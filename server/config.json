@@ -1,0 +1,6 @@
+{
+    "development": {
+        "publicFilePath": "/../public",
+        "port": 51108
+    }
+}
