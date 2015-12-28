@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Luna
+namespace luna.windows
 {
     public class Window
     {

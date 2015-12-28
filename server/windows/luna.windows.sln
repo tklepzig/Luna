@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "luna.windows", "luna.windows\luna.windows.csproj", "{CAE82CB2-1B2C-4693-9DBB-B7A50201160D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAE82CB2-1B2C-4693-9DBB-B7A50201160D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAE82CB2-1B2C-4693-9DBB-B7A50201160D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAE82CB2-1B2C-4693-9DBB-B7A50201160D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAE82CB2-1B2C-4693-9DBB-B7A50201160D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
