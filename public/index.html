@@ -3,18 +3,26 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=10.0, width=device-width" />
     <title>Luna</title>
+    <link rel="stylesheet" href="./bower_components/lcars.web/dist/lcars.web.min.css">
     <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="./bower_components/socket.io-client/socket.io.js" charset="utf-8"></script>
+    <script src="./bower_components/lcars.web/dist/lcars.web.min.js" charset="utf-8"></script>
 </head>
 
-<body>
+<body ontouchstart="" class="layout-v layout-fill">
     <script>
         var socket = io();
     </script>
-    <button onclick="socket.emit('media-playPause');"> Play/Pause </button>
-    <button onclick="socket.emit('media-volumeUp');"> Volume Up </button>
-    <button onclick="socket.emit('media-volumeDown');"> Volume Down </button>
+    <button class="button" onclick="socket.emit('media-playPause');"> Play/Pause </button>
+    <button class="button" onclick="socket.emit('media-volumeUp');"> Volume Up </button>
+    <button class="button" onclick="socket.emit('media-volumeDown');"> Volume Down </button>
+    <button class="button" onclick="socket.emit('keyboard-pressKey', 'N');">Next</button>
+    <button class="button" onclick="socket.emit('keyboard-pressKey', 'P');">Previous</button>
+    <button class="button" onclick="socket.emit('keyboard-pressKey', 'B');">Break</button>
 </body>
 
 </html>

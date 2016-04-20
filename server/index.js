@@ -47,6 +47,10 @@ socketIo.on('connection', function(socket) {
     socket.on('media-volumeDown', function() {
         luna.media.volumeDown();
     });
+
+    socket.on('keyboard-pressKey', function(key) {
+        luna.keyboard.pressKey(key);
+    });
 });
 
 
