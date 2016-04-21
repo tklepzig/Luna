@@ -11,18 +11,48 @@
     <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <script src="./bower_components/socket.io-client/socket.io.js" charset="utf-8"></script>
     <script src="./bower_components/lcars.web/dist/lcars.web.min.js" charset="utf-8"></script>
+    <script src="./bower_components/fullscreenjs/fullscreen.min.js" charset="utf-8"></script>
 </head>
 
 <body ontouchstart="" class="layout-v layout-fill">
     <script>
         var socket = io();
     </script>
-    <button class="button" onclick="socket.emit('media-playPause');"> Play/Pause </button>
-    <button class="button" onclick="socket.emit('media-volumeUp');"> Volume Up </button>
-    <button class="button" onclick="socket.emit('media-volumeDown');"> Volume Down </button>
-    <button class="button" onclick="socket.emit('keyboard-pressKey', 'N');">Next</button>
-    <button class="button" onclick="socket.emit('keyboard-pressKey', 'P');">Previous</button>
-    <button class="button" onclick="socket.emit('keyboard-pressKey', 'B');">Break</button>
+    <button style="flex: 1;" class="button dim blue flex" id="enterFullscreen">Enter Fullscreen</button>
+    <div style="height: 20px;" class="flex-none"></div>
+    <div style="background: inherit; flex: 10;" class="flex layout-v" id="main">
+        <button style="flex: 1;" class="button flex dark orange" data-key="P">Previous</button>
+        <div style="height: 20px;" class="flex-none"></div>
+        <button style="flex: 6;" class="button flex orange" data-key="N">Next</button>
+    </div>
+    <script>
+        var downEvent;
+        var moveEvent;
+        var upEvent;
+
+        if ("ontouchstart" in window) {
+            downEvent = "touchstart";
+            moveEvent = "touchmove";
+            upEvent = "touchend";
+        } else if ("pointerdown" in window) {
+            downEvent = "pointerdown";
+            moveEvent = "pointermove";
+            upEvent = "pointerup";
+        } else {
+            downEvent = "mousedown";
+            moveEvent = "mousemove";
+            upEvent = "mouseup";
+        }
+
+        $(document).on(downEvent, ".button[data-key]", function() {
+            socket.emit('keyboard-pressKey', $(this).data('key'));
+        });
+
+
+        $("#enterFullscreen").on(downEvent, function() {
+            fullscreen.toggle($("#main").get(0));
+        });
+    </script>
 </body>
 
 </html>
