@@ -18,12 +18,12 @@
     <script>
         var socket = io();
     </script>
-    <button style="flex: 1;" class="button dim blue flex" id="enterFullscreen">Enter Fullscreen</button>
-    <div style="height: 20px;" class="flex-none"></div>
-    <div style="background: inherit; flex: 10;" class="flex layout-v" id="main">
-        <button style="flex: 1;" class="button flex dark orange" data-key="P">Previous</button>
-        <div style="height: 20px;" class="flex-none"></div>
-        <button style="flex: 6;" class="button flex orange" data-key="N">Next</button>
+    <button class="button flex-15 dim blue" id="enterFullscreen">Enter Fullscreen</button>
+    <div class="flex-2"></div>
+    <div style="background: inherit;" class="flex layout-v" id="main">
+        <button class="button flex-15 light orange" data-key="P">Previous</button>
+        <div class="flex-2"></div>
+        <button class="button flex orange" data-key="N">Next</button>
     </div>
     <script>
         var downEvent;
