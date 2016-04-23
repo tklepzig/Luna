@@ -12,6 +12,12 @@
     <script src="./bower_components/socket.io-client/socket.io.js" charset="utf-8"></script>
     <script src="./bower_components/lcars.web/dist/lcars.web.min.js" charset="utf-8"></script>
     <script src="./bower_components/fullscreenjs/fullscreen.min.js" charset="utf-8"></script>
+    <style media="screen">
+        #main.fullscreen
+        {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body ontouchstart="" class="layout-v layout-fill">
@@ -44,13 +50,14 @@
             upEvent = "mouseup";
         }
 
-        $(document).on(downEvent, ".button[data-key]", function() {
+        $(document).on(upEvent, ".button[data-key]", function() {
             socket.emit('keyboard-pressKey', $(this).data('key'));
         });
 
 
-        $("#enterFullscreen").on(downEvent, function() {
+        $("#enterFullscreen").on(upEvent, function() {
             fullscreen.toggle($("#main").get(0));
+            $("#main").toggleClass('fullscreen');
         });
     </script>
 </body>

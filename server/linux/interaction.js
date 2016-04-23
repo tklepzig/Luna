@@ -14,6 +14,12 @@ module.exports.media = {
     }
 };
 
+module.exports.keyboard = {
+    pressKey: function(key) {
+        exec('xdotool key ' + key.toLowerCase());
+    }
+};
+
 //lock workstation: gnome-screensaver-command -l
 //start screensaver: gnome-screensaver-command -a
 //stop screensaver: gnome-screensaver-command -d
