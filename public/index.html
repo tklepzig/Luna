@@ -20,15 +20,15 @@
     </style>
 </head>
 
-<body ontouchstart="" class="layout-v layout-fill">
+<body ontouchstart="" class="layout-v layout-fill layout-margin">
     <script>
         var socket = io();
     </script>
     <button class="button flex-15 dim blue" id="enterFullscreen">Enter Fullscreen</button>
-    <div class="flex-2"></div>
-    <div style="background: inherit;" class="flex layout-v" id="main">
+    <div class="flex-1"></div>
+    <div style="background: inherit;" class="flex layout-v layout-margin" id="main">
         <button class="button flex-15 light orange" data-key="P">Previous</button>
-        <div class="flex-2"></div>
+        <div class="flex-1"></div>
         <button class="button flex orange" data-key="N">Next</button>
     </div>
     <script>
