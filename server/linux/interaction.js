@@ -15,8 +15,28 @@ module.exports.media = {
 };
 
 module.exports.keyboard = {
-    pressKey: function(key) {
-        exec('xdotool key ' + key.toLowerCase());
+    pressKey: function(key, modifiers) {
+        //key
+        key = key.toLowerCase();
+        if (key === 'win') {
+            key = 'super';
+        }
+
+        //modifiers
+        var modifiersString = '';
+        if (modifiers.length > 0) {
+            for (var i = 0; i < modifiers.length; i++) {
+                modifiers[i] = modifiers[i].toLowerCase();
+                if (modifiers[i] === 'win') {
+                    modifiers[i] = 'super';
+                }
+
+                modifiersString += modifiers[i] + '+';
+            }
+        }
+
+        console.log('xdotool key ' + modifiersString + key);
+        exec('xdotool key ' + modifiersString + key);
     }
 };
 
