@@ -51,7 +51,7 @@
         }
 
         $(document).on(upEvent, ".button[data-key]", function() {
-            socket.emit('keyboard-pressKey', $(this).data('key'), ['shift', 'ctrl', 'win', 'alt']);
+            socket.emit('keyboard-pressKey', $(this).data('key'), ['Ctrl']);
         });
 
 

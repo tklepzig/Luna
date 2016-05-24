@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,56 @@ namespace luna.windows
 #pragma warning disable 1998
     public class Keyboard
     {
-        public async Task<object> PressKey(dynamic key)
+        public async Task<object> PressKey(dynamic keyData)
         {
+            var key = keyData.key;
+            var modifiers = new List<string>();
+
+            if (keyData.modifiers != null)
+            {
+                modifiers = ((object[])keyData.modifiers).Where(x => x != null)
+                                                         .Select(x => x.ToString().ToLower())
+                                                         .ToList();
+            }
+
             try
             {
                 var bKey = Convert.ToByte(Convert.ToChar(key));
+
+                if (modifiers.Contains("shift"))
+                    Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.Shift, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.Shift, 0), 0, UIntPtr.Zero);
+
+                if (modifiers.Contains("win"))
+                    Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.LeftWindows, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.LeftWindows, 0), 0, UIntPtr.Zero);
+
+                if (modifiers.Contains("ctrl"))
+                    Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.Control, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.Control, 0), 0, UIntPtr.Zero);
+
+                if (modifiers.Contains("alt"))
+                    Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.LeftMenu, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.LeftMenu, 0), 0, UIntPtr.Zero);
+
+                //if (modKey.HasFlag(Win32APIImports.ModifierKey.AltGr))
+                //    Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.RightMenu, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.RightMenu, 0), 0, UIntPtr.Zero);
+
+                
                 SendKey(bKey, KeyState.Down);
                 SendKey(bKey, KeyState.Up);
+
+                if (modifiers.Contains("shift"))
+                    Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.Shift, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.Shift, 0), 2, UIntPtr.Zero);
+
+                if (modifiers.Contains("win"))
+                    Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.LeftWindows, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.LeftWindows, 0), 2, UIntPtr.Zero);
+
+                if (modifiers.Contains("ctrl"))
+                    Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.Control, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.Control, 0), 2, UIntPtr.Zero);
+
+                if (modifiers.Contains("alt"))
+                    Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.LeftMenu, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.LeftMenu, 0), 2, UIntPtr.Zero);
+
+                //if (modKey.HasFlag(Win32APIImports.ModifierKey.AltGr))
+                //    Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.RightMenu, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.RightMenu, 0), 2, UIntPtr.Zero);
+
             }
             finally
             {
@@ -24,43 +68,6 @@ namespace luna.windows
             return null;
         }
 
-
-        //public void PressKey(Win32APIImports.VirtualKeys virtualKey, Win32APIImports.ModifierKey modKey)
-        //{
-        //    if (modKey.HasFlag(Win32APIImports.ModifierKey.Shift))
-        //        Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.Shift, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.Shift, 0), 0, UIntPtr.Zero);
-
-        //    if (modKey.HasFlag(Win32APIImports.ModifierKey.Windows))
-        //        Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.LeftWindows, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.LeftWindows, 0), 0, UIntPtr.Zero);
-
-        //    if (modKey.HasFlag(Win32APIImports.ModifierKey.Control))
-        //        Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.Control, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.Control, 0), 0, UIntPtr.Zero);
-
-        //    if (modKey.HasFlag(Win32APIImports.ModifierKey.Alt))
-        //        Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.LeftMenu, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.LeftMenu, 0), 0, UIntPtr.Zero);
-
-        //    if (modKey.HasFlag(Win32APIImports.ModifierKey.AltGr))
-        //        Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.RightMenu, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.RightMenu, 0), 0, UIntPtr.Zero);
-
-
-        //    SendKey(virtualKey, KeyState.Down);
-        //    SendKey(virtualKey, KeyState.Up);
-
-        //    if (modKey.HasFlag(Win32APIImports.ModifierKey.Shift))
-        //        Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.Shift, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.Shift, 0), 2, UIntPtr.Zero);
-
-        //    if (modKey.HasFlag(Win32APIImports.ModifierKey.Windows))
-        //        Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.LeftWindows, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.LeftWindows, 0), 2, UIntPtr.Zero);
-
-        //    if (modKey.HasFlag(Win32APIImports.ModifierKey.Control))
-        //        Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.Control, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.Control, 0), 2, UIntPtr.Zero);
-
-        //    if (modKey.HasFlag(Win32APIImports.ModifierKey.Alt))
-        //        Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.LeftMenu, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.LeftMenu, 0), 2, UIntPtr.Zero);
-
-        //    if (modKey.HasFlag(Win32APIImports.ModifierKey.AltGr))
-        //        Win32APIImports.keybd_event((byte)Win32APIImports.VirtualKeys.RightMenu, Win32APIImports.MapVirtualKey((byte)Win32APIImports.VirtualKeys.RightMenu, 0), 2, UIntPtr.Zero);
-        //}
 
         enum KeyState
         {

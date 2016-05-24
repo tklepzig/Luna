@@ -30,11 +30,14 @@ module.exports.media = {
 
 
 module.exports.keyboard = {
-    pressKey: function(key) {
+    pressKey: function(key, modifiers) {
         edge.func({
             assemblyFile: dllFilePath,
             typeName: 'luna.windows.Keyboard',
             methodName: 'PressKey'
-        })(key);
+        })({
+            key: key,
+            modifiers: modifiers
+        });
     }
 };
