@@ -51,6 +51,30 @@ socketIo.on('connection', function(socket) {
     socket.on('keyboard-pressKey', function(key, modifiers) {
         luna.keyboard.pressKey(key, modifiers);
     });
+
+    socket.on('mouse-move', function(offset) {
+        luna.mouse.move(offset);
+    });
+
+    socket.on('mouse-wheel', function(delta) {
+        luna.mouse.wheel(delta);
+    });
+
+    socket.on('mouse-hWheel', function(delta) {
+        luna.mouse.hWheel(delta);
+    });
+
+    socket.on('mouse-leftClick', function() {
+        luna.mouse.leftClick();
+    });
+
+    socket.on('mouse-rightClick', function() {
+        luna.mouse.rightClick();
+    });
+
+    socket.on('mouse-middleClick', function() {
+        luna.mouse.middleClick();
+    });
 });
 
 
