@@ -3,19 +3,19 @@
 var exec = require('child_process').exec;
 
 module.exports.media = {
-    playPause: function() {
+    playPause: function () {
         exec('xdotool key XF86AudioPlay');
     },
-    volumeUp: function() {
+    volumeUp: function () {
         exec('xdotool key XF86AudioRaiseVolume');
     },
-    volumeDown: function() {
+    volumeDown: function () {
         exec('xdotool key XF86AudioLowerVolume');
     }
 };
 
 module.exports.keyboard = {
-    pressKey: function(key, modifiers) {
+    pressKey: function (key, modifiers) {
         //key
         key = key.toLowerCase();
         if (key === 'win') {
@@ -24,7 +24,7 @@ module.exports.keyboard = {
 
         //modifiers
         var modifiersString = '';
-        if (modifiers.length > 0) {
+        if (modifiers && modifiers.length > 0) {
             for (var i = 0; i < modifiers.length; i++) {
                 modifiers[i] = modifiers[i].toLowerCase();
                 if (modifiers[i] === 'win') {
@@ -35,10 +35,49 @@ module.exports.keyboard = {
             }
         }
 
-        console.log('xdotool key ' + modifiersString + key);
         exec('xdotool key ' + modifiersString + key);
     }
 };
+
+module.exports.mouse = {
+    move: function (offset) {
+        exec('xdotool mousemove_relative -- ' + offset.x + ' ' + offset.y);
+    },
+    wheel: function (delta) {
+        if (delta > 0) {
+            for (var i = 0; i < delta / 60; i++) {
+                exec('xdotool click --clearmodifiers 4');
+            }
+        }
+        else {
+            for (var i = 0; i < delta * -1 / 60; i++) {
+                exec('xdotool click --clearmodifiers 5');
+            }
+        }
+    },
+    hWheel: function (delta) {
+        if (delta > 0) {
+            for (var i = 0; i < delta / 60; i++) {
+                exec('xdotool click --clearmodifiers 6');
+            }
+        }
+        else {
+            for (var i = 0; i < delta * -1 / 60; i++) {
+                exec('xdotool click --clearmodifiers 7');
+            }
+        }
+    },
+    leftClick: function () {
+        exec('xdotool click 1');
+    },
+    rightClick: function () {
+        exec('xdotool click 3');
+    },
+    middleClick: function () {
+        exec('xdotool click 2');
+    }
+};
+
 
 //lock workstation: gnome-screensaver-command -l
 //start screensaver: gnome-screensaver-command -a
