@@ -20,6 +20,15 @@
 </head>
 
 <body ontouchstart="" class="layout-v layout-fill layout-margin">
+
+    <button class="button flex-15 dim blue" id="enterFullscreen">Enter Fullscreen</button>
+    <div class="flex-1"></div>
+    <div style="background: inherit;" class="flex layout-v layout-margin" id="main">
+        <button class="button flex-15 light orange" data-key="P">Previous</button>
+        <div style="color: #ededed; font-size: 0.8em; text-align: center;" class="id flex-3"></div>
+        <button class="button flex orange" data-key="N">Next</button>
+    </div>
+    <!--<div class="flex orange" id="mouse"></div>-->
     <script>
         var socket = io();
 
@@ -33,18 +42,16 @@
             return id;
         }
 
-
-        var id = makeid();
-        alert(id);
+        var id;
+        if (!localStorage.connectionId) {
+            id = makeid();
+            localStorage.connectionId = id;
+        }
+        else {
+            id = localStorage.connectionId;
+        }
+        $(".id").text(id);
     </script>
-    <button class="button flex-15 dim blue" id="enterFullscreen">Enter Fullscreen</button>
-    <div class="flex-1"></div>
-    <div style="background: inherit;" class="flex layout-v layout-margin" id="main">
-        <button class="button flex-15 light orange" data-key="P">Previous</button>
-        <div class="flex-1"></div>
-        <button class="button flex orange" data-key="N">Next</button>
-    </div>
-    <!--<div class="flex orange" id="mouse"></div>-->
     <script>
         var downEvent;
         var moveEvent;
