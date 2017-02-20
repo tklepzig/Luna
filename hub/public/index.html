@@ -88,8 +88,23 @@
             }
         }
 
+        function executeSocketCommand(action, args) {
+            var pingTimeout = setTimeout(function () {
+                socket.close();
+                socket.connect();
+                action(args);
+            }, 1000);
+
+            socket.emit("ping", function () {
+                clearTimeout(pingTimeout);
+                action(args);
+            });
+        }
+
         $(document).on(upEvent, ".button[data-key]", function () {
-            socket.emit('keyboard-pressKey', id, $(this).data('key'));
+            executeSocketCommand(function (e) {
+                socket.emit('keyboard-pressKey', id, e.key);
+            }, { key: $(this).data('key') });
         });
 
         $("#enterFullscreen").on(upEvent, function () {

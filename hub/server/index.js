@@ -11,56 +11,60 @@ var path = require('path');
 
 app.use('/', express.static(path.resolve(__dirname + "/../public")));
 
-socketIo.on('connection', function(socket) {
+socketIo.on('connection', function (socket) {
     var clientIp = socket.request.connection.remoteAddress;
     console.log('Client connected:\t' + clientIp);
-    socket.on('disconnect', function() {
+    socket.on('disconnect', function () {
         console.log('Client disconnected:\t' + clientIp);
     });
 
     //client functions
-    socket.on('media-playPause', function(id) {
+    socket.on("ping", function (pong) {
+        pong();
+    });
+
+    socket.on('media-playPause', function (id) {
         socket.broadcast.emit("media-playPause", id);
     });
 
-    socket.on('media-volumeUp', function(id) {
+    socket.on('media-volumeUp', function (id) {
         socket.broadcast.emit("media-volumeUp", id);
     });
 
-    socket.on('media-volumeDown', function(id) {
+    socket.on('media-volumeDown', function (id) {
         socket.broadcast.emit("media-volumeDown", id);
     });
 
-    socket.on('keyboard-pressKey', function(id, key, modifiers) {
+    socket.on('keyboard-pressKey', function (id, key, modifiers) {
         socket.broadcast.emit("keyboard-pressKey", id, key, modifiers);
     });
 
-    socket.on('mouse-move', function(id, offset) {
+    socket.on('mouse-move', function (id, offset) {
         socket.broadcast.emit("mouse-move", id, offset);
     });
 
-    socket.on('mouse-wheel', function(id, delta) {
+    socket.on('mouse-wheel', function (id, delta) {
         socket.broadcast.emit("mouse-wheel", id, delta);
     });
 
-    socket.on('mouse-hWheel', function(id, delta) {
+    socket.on('mouse-hWheel', function (id, delta) {
         socket.broadcast.emit("mouse-hWheel", id, delta);
     });
 
-    socket.on('mouse-leftClick', function(id) {
+    socket.on('mouse-leftClick', function (id) {
         socket.broadcast.emit("mouse-leftClick", id);
     });
 
-    socket.on('mouse-rightClick', function(id) {
+    socket.on('mouse-rightClick', function (id) {
         socket.broadcast.emit("mouse-rightClick", id);
     });
 
-    socket.on('mouse-middleClick', function(id) {
+    socket.on('mouse-middleClick', function (id) {
         socket.broadcast.emit("mouse-middleClick", id);
     });
 });
 
 
-http.listen(port, function() {
+http.listen(port, function () {
     console.log('listening on *:' + port);
 });
