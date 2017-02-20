@@ -10,7 +10,6 @@
     "tests"
   ],
   "dependencies": {
-    "socket.io-client": "~1.3.7",
     "jquery": "~2.1.4",
     "lcars.web": "*",
     "fullscreenjs": "^0.0.2"
