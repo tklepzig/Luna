@@ -1,5 +1,4 @@
 'use strict';
-var exec = require('child_process').exec;
 
 if (process.argv.length < 4) {
     console.log("Please supply hub url and connection id!");
@@ -61,8 +60,7 @@ socket.on('keyboard-pressKey', function (id, key, modifiers) {
         return;
     }
 
-    exec('python key.py ' + key);
-    // luna.keyboard.pressKey(key, modifiers);
+    luna.keyboard.pressKey(key, modifiers);
 });
 
 socket.on('mouse-move', function (id, offset) {
