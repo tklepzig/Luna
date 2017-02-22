@@ -1,4 +1,5 @@
 'use strict';
+var exec = require('child_process').exec;
 
 if (process.argv.length < 4) {
     console.log("Please supply hub url and connection id!");
@@ -27,7 +28,7 @@ if (/^win/.test(platform)) {
 
 var socket = socketIoClient(hubUrl);
 
-socket.on("connect", () => {
+socket.on("connect", function () {
     console.log("Successfully connected to hub, waiting for commands...");
 });
 
@@ -60,7 +61,8 @@ socket.on('keyboard-pressKey', function (id, key, modifiers) {
         return;
     }
 
-    luna.keyboard.pressKey(key, modifiers);
+    exec('python key.py ' + key);
+    // luna.keyboard.pressKey(key, modifiers);
 });
 
 socket.on('mouse-move', function (id, offset) {
