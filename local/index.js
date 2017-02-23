@@ -27,7 +27,7 @@ if (/^win/.test(platform)) {
 
 var socket = socketIoClient(hubUrl);
 
-socket.on("connect", () => {
+socket.on("connect", function () {
     console.log("Successfully connected to hub, waiting for commands...");
 });
 
