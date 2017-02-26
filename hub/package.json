@@ -7,8 +7,9 @@
     "client-transpile": "babel public --out-dir dist/public --source-maps inline",
     "client-bundle": "browserify dist/public/app.js -o dist/public/bundle.js",
     "client-static": "cp public/index.html dist/public/",
+    "scss": "node-sass public/app.scss dist/public/app.css --output-style compressed --source-map-embed",
     "prebuild": "npm run clean",
-    "build": "npm run server-transpile && npm run client-transpile && npm run client-bundle && npm run client-static",
+    "build": "npm run server-transpile && npm run client-transpile && npm run client-bundle && npm run client-static && npm run scss",
     "start": "node dist/server/index.js"
   },
   "dependencies": {
@@ -25,6 +26,7 @@
     "eslint-plugin-react": "^6.10.0",
     "node-sass": "^4.5.0",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "socket.io-client": "^1.7.3"
   }
 }
