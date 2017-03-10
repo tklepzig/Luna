@@ -122,6 +122,9 @@ fi
 ##################################################################################################################################
 
 # Post deployment stub
+cd "$DEPLOYMENT_SOURCE"
+git rev-parse --short HEAD > "$DEPLOYMENT_TARGET/public/version.txt"
+
 if [[ -n "$POST_DEPLOYMENT_ACTION" ]]; then
   POST_DEPLOYMENT_ACTION=${POST_DEPLOYMENT_ACTION//\"}
   cd "${POST_DEPLOYMENT_ACTION_DIR%\\*}"

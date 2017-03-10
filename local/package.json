@@ -5,6 +5,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "edge": "^6.5.1",
     "socket.io-client": "^1.7.3"
   }
 }
