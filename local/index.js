@@ -1,37 +1,33 @@
-'use strict';
-
 if (process.argv.length < 4) {
     console.log("Please supply hub url and connection id!");
     process.exit(1);
 }
 
-var hubUrl = process.argv[2];
-var connectionId = process.argv[3];
+const hubUrl = process.argv[2];
+const connectionId = process.argv[3];
 
-var socketIoClient = require('socket.io-client');
+const socketIoClient = require("socket.io-client");
+const os = require("os");
 
-var port = 51108;
-var os = require('os');
-
-var luna;
-var platform = os.platform();
+let luna;
+const platform = os.platform();
 
 if (/^win/.test(platform)) {
-    luna = require('./windows/interaction.js');
+    luna = require("./windows/interaction.js");
 } else if (/^linux/.test(platform)) {
-    luna = require('./linux/interaction.js');
+    luna = require("./linux/interaction.js");
 } else {
-    console.log('Unsupported operating system.');
+    console.log("Unsupported operating system.");
     process.exit(1);
 }
 
-var socket = socketIoClient(hubUrl);
+const socket = socketIoClient(hubUrl);
 
-socket.on("connect", function () {
+socket.on("connect", () => {
     console.log("Successfully connected to hub, waiting for commands...");
 });
 
-socket.on('media-playPause', function (id) {
+socket.on("media-playPause", (id) => {
     if (id != connectionId) {
         return;
     }
@@ -39,7 +35,7 @@ socket.on('media-playPause', function (id) {
     luna.media.playPause();
 });
 
-socket.on('media-volumeUp', function (id) {
+socket.on("media-volumeUp", (id) => {
     if (id != connectionId) {
         return;
     }
@@ -47,7 +43,7 @@ socket.on('media-volumeUp', function (id) {
     luna.media.volumeUp();
 });
 
-socket.on('media-volumeDown', function (id) {
+socket.on("media-volumeDown", (id) => {
     if (id != connectionId) {
         return;
     }
@@ -55,7 +51,7 @@ socket.on('media-volumeDown', function (id) {
     luna.media.volumeDown();
 });
 
-socket.on('keyboard-pressKey', function (id, key, modifiers) {
+socket.on("keyboard-pressKey", (id, key, modifiers) => {
     if (id != connectionId) {
         return;
     }
@@ -63,7 +59,7 @@ socket.on('keyboard-pressKey', function (id, key, modifiers) {
     luna.keyboard.pressKey(key, modifiers);
 });
 
-socket.on('mouse-move', function (id, offset) {
+socket.on("mouse-move", (id, offset) => {
     if (id != connectionId) {
         return;
     }
@@ -71,7 +67,7 @@ socket.on('mouse-move', function (id, offset) {
     luna.mouse.move(offset);
 });
 
-socket.on('mouse-wheel', function (id, delta) {
+socket.on("mouse-wheel", (id, delta) => {
     if (id != connectionId) {
         return;
     }
@@ -79,7 +75,7 @@ socket.on('mouse-wheel', function (id, delta) {
     luna.mouse.wheel(delta);
 });
 
-socket.on('mouse-hWheel', function (id, delta) {
+socket.on("mouse-hWheel", (id, delta) => {
     if (id != connectionId) {
         return;
     }
@@ -87,7 +83,7 @@ socket.on('mouse-hWheel', function (id, delta) {
     luna.mouse.hWheel(delta);
 });
 
-socket.on('mouse-leftClick', function (id) {
+socket.on("mouse-leftClick", (id) => {
     if (id != connectionId) {
         return;
     }
@@ -95,7 +91,7 @@ socket.on('mouse-leftClick', function (id) {
     luna.mouse.leftClick();
 });
 
-socket.on('mouse-rightClick', function (id) {
+socket.on("mouse-rightClick", (id) => {
     if (id != connectionId) {
         return;
     }
@@ -103,7 +99,7 @@ socket.on('mouse-rightClick', function (id) {
     luna.mouse.rightClick();
 });
 
-socket.on('mouse-middleClick', function (id) {
+socket.on("mouse-middleClick", (id) => {
     if (id != connectionId) {
         return;
     }

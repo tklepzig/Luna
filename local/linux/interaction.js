@@ -1,16 +1,14 @@
-'use strict';
-
-var exec = require('child_process').exec;
+const exec = require("child_process").exec;
 
 module.exports.media = {
     playPause: function () {
-        exec('xdotool key XF86AudioPlay');
+        exec("xdotool key XF86AudioPlay");
     },
     volumeUp: function () {
-        exec('xdotool key XF86AudioRaiseVolume');
+        exec("xdotool key XF86AudioRaiseVolume");
     },
     volumeDown: function () {
-        exec('xdotool key XF86AudioLowerVolume');
+        exec("xdotool key XF86AudioLowerVolume");
     }
 };
 
@@ -18,63 +16,63 @@ module.exports.keyboard = {
     pressKey: function (key, modifiers) {
         //key
         key = key.toLowerCase();
-        if (key === 'win') {
-            key = 'super';
+        if (key === "win") {
+            key = "super";
         }
 
         //modifiers
-        var modifiersString = '';
+        let modifiersString = "";
         if (modifiers && modifiers.length > 0) {
-            for (var i = 0; i < modifiers.length; i++) {
+            for (let i = 0; i < modifiers.length; i++) {
                 modifiers[i] = modifiers[i].toLowerCase();
-                if (modifiers[i] === 'win') {
-                    modifiers[i] = 'super';
+                if (modifiers[i] === "win") {
+                    modifiers[i] = "super";
                 }
 
-                modifiersString += modifiers[i] + '+';
+                modifiersString += modifiers[i] + "+";
             }
         }
 
-        exec('xdotool key ' + modifiersString + key);
+        exec("xdotool key " + modifiersString + key);
     }
 };
 
 module.exports.mouse = {
     move: function (offset) {
-        exec('xdotool mousemove_relative -- ' + offset.x + ' ' + offset.y);
+        exec("xdotool mousemove_relative -- " + offset.x + " " + offset.y);
     },
     wheel: function (delta) {
         if (delta > 0) {
-            for (var i = 0; i < delta / 60; i++) {
-                exec('xdotool click --clearmodifiers 4');
+            for (let i = 0; i < delta / 60; i++) {
+                exec("xdotool click --clearmodifiers 4");
             }
         }
         else {
-            for (var i = 0; i < delta * -1 / 60; i++) {
-                exec('xdotool click --clearmodifiers 5');
+            for (let i = 0; i < delta * -1 / 60; i++) {
+                exec("xdotool click --clearmodifiers 5");
             }
         }
     },
     hWheel: function (delta) {
         if (delta > 0) {
-            for (var i = 0; i < delta / 60; i++) {
-                exec('xdotool click --clearmodifiers 6');
+            for (let i = 0; i < delta / 60; i++) {
+                exec("xdotool click --clearmodifiers 6");
             }
         }
         else {
-            for (var i = 0; i < delta * -1 / 60; i++) {
-                exec('xdotool click --clearmodifiers 7');
+            for (let i = 0; i < delta * -1 / 60; i++) {
+                exec("xdotool click --clearmodifiers 7");
             }
         }
     },
     leftClick: function () {
-        exec('xdotool click 1');
+        exec("xdotool click 1");
     },
     rightClick: function () {
-        exec('xdotool click 3');
+        exec("xdotool click 3");
     },
     middleClick: function () {
-        exec('xdotool click 2');
+        exec("xdotool click 2");
     }
 };
 
