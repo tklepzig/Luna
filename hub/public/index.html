@@ -8,241 +8,25 @@
     <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=10.0, width=device-width" />
     <title>Luna</title>
     <link rel="stylesheet" href="app.css">
-    <!--<script src="app.js"></script>-->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" charset="utf-8"></script>
-    <script src="https://rawgit.com/tklepzig/FullscreenJS/master/fullscreen.min.js" charset="utf-8"></script>
-    <style media="screen">
-        #main.fullscreen,
-        #mouse.fullscreen {
-            width: 100%;
-        }
-        
-        .hidden {
-            display: none;
-        }
-    </style>
 </head>
 
 <body ontouchstart="" class="layout-v layout-fill layout-margin">
-    <div class="flex-15 layout-h">
-        <button class="button flex dim blue" id="enterFullscreen">Enter Fullscreen</button>
-        <button class="button flex dim orange" id="enableMouse">Enable Mouse</button>
+    <div class="flex layout-v" id="root">
+        <!--<div class="flex-15 layout-h">
+            <button class="button flex dim blue" id="enterFullscreen">Enter Fullscreen</button>
+            <button class="button flex dim orange" id="enableMouse">Enable Mouse</button>
+        </div>
+        <div class="flex-1"></div>
+        <div style="background: inherit;" class="flex layout-v layout-margin" id="main">
+            <button class="button flex-15 light orange" data-key="P">Previous</button>
+            <div style="color: #ededed; font-size: 0.8em; text-align: center;" class="id flex-3"></div>
+            <button class="button flex orange" data-key="N">Next</button>
+        </div>-->
     </div>
-    <div class="flex-1"></div>
-    <div style="background: inherit;" class="flex layout-v layout-margin" id="main">
-        <button class="button flex-15 light orange" data-key="P">Previous</button>
-        <div style="color: #ededed; font-size: 0.8em; text-align: center;" class="id flex-3"></div>
-        <button class="button flex orange" data-key="N">Next</button>
-    </div>
-    <div class="flex orange hidden" id="mouse"></div>
-    <script>
-        var socket = io();
-
-        function makeid() {
-            var id = "";
-            var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-            for (var i = 0; i < 6; i++)
-                id += possible.charAt(Math.floor(Math.random() * possible.length));
-
-            return id;
-        }
-
-        var id;
-        if (!localStorage.connectionId) {
-            id = makeid();
-            localStorage.connectionId = id;
-        }
-        else {
-            id = localStorage.connectionId;
-        }
-        $(".id").text(id);
-    </script>
-    <script>
-        var downEvent;
-        var moveEvent;
-        var upEvent;
-        var getMousePosition;
-        var getTouchCount;
-
-        if ("ontouchstart" in window) {
-            downEvent = "touchstart";
-            moveEvent = "touchmove";
-            upEvent = "touchend";
-
-            getMousePosition = function (e) {
-                return { x: e.originalEvent.targetTouches[0].pageX, y: e.originalEvent.targetTouches[0].pageY };
-            };
-            getTouchCount = function (e) {
-                return e.originalEvent.touches.length;
-            }
-
-        } else if ("pointerdown" in window) {
-            downEvent = "pointerdown";
-            moveEvent = "pointermove";
-            upEvent = "pointerup";
-
-            getMousePosition = function (e) {
-                return { x: e.pageX, y: e.pageY };
-            };
-            getTouchCount = function () {
-                return 1;
-            }
-        } else {
-            downEvent = "mousedown";
-            moveEvent = "mousemove";
-            upEvent = "mouseup";
-
-            getMousePosition = function (e) {
-                return { x: e.pageX, y: e.pageY };
-            };
-            getTouchCount = function () {
-                return 1;
-            }
-        }
-
-        function executeSocketCommand(action, args) {
-            var pingTimeout = setTimeout(function () {
-                socket.close();
-                socket.connect();
-                action(args);
-            }, 1000);
-
-            socket.emit("ping", function () {
-                clearTimeout(pingTimeout);
-                action(args);
-            });
-        }
-
-        $(document).on(upEvent, ".button[data-key]", function () {
-            executeSocketCommand(function (e) {
-                socket.emit('keyboard-pressKey', id, e.key);
-            }, { key: $(this).data('key') });
-        });
-
-        $("#enableMouse").on(upEvent, function () {
-            $("#mouse").removeClass('hidden');
-            fullscreen.toggle($("#mouse").get(0));
-            $("#mouse").toggleClass('fullscreen');
-        });
-
-        $("#enterFullscreen").on(upEvent, function () {
-            fullscreen.toggle($("#main").get(0));
-            $("#main").toggleClass('fullscreen');
-        });
-    </script>
-    <script>
-        (function () {
-            var clickPoint = null;
-            var downPoint = null;
-            var touchCount = null;
-            var firstMove;
-
-            $("#mouse").on(downEvent, function (e) {
-                touchCount = getTouchCount(e);
-                var pos = getMousePosition(e);
-                downPoint = clickPoint = {
-                    x: pos.x,
-                    y: pos.y
-                };
-                firstMove = true;
-
-                e.stopPropagation();
-                e.preventDefault();
-                return false;
-            });
-
-            $("#mouse").on(moveEvent, function (e) {
-                if (downPoint == null)
-                    return true;
-
-                var pos = getMousePosition(e);
-
-                var offset = {
-                    x: parseInt(pos.x - downPoint.x),
-                    y: parseInt(pos.y - downPoint.y)
-                };
-
-                if (firstMove) {
-                    offset.x = offset.x < 0
-                        ? -1
-                        : 1;
-                    offset.y = offset.y < 0
-                        ? -1
-                        : 1;
-                    firstMove = false;
-                }
-
-                downPoint = {
-                    x: pos.x,
-                    y: pos.y
-                };
-
-                switch (touchCount) {
-                    case 1:
-
-                        if (Math.abs(offset.x) > 2)
-                            offset.x *= (offset.x.toString().length + 2);
-                        if (Math.abs(offset.y) > 2)
-                            offset.y *= (offset.y.toString().length + 2);
-
-                        socket.emit('mouse-move', id, offset);
-
-                        // lily.tryRunHubCommand(function(hub) {     hub.server.moveMouse(offset.x, offset.y); });
-
-                        break;
-                    case 2:
-                        var delta;
-                        if (Math.abs(offset.x) > 4) {
-                            delta = Math.floor(Math.abs(offset.x) / 2) * 60;
-                            if (offset.x > 0)
-                                delta *= -1;
-
-                            socket.emit('mouse-hWheel', id, delta);
-                            // lily.tryRunHubCommand(function(hub) {     hub.server.mouseHWheel(delta); });
-                        } else {
-                            delta = Math.floor(Math.abs(offset.y) / 2) * 60;
-                            if (offset.y > 0)
-                                delta *= -1;
-
-                            socket.emit('mouse-wheel', id, delta);
-                            // lily.tryRunHubCommand(function(hub) {     hub.server.mouseWheel(delta); });
-                        }
-
-                        break;
-                }
-
-                e.stopPropagation();
-                e.preventDefault();
-                return false;
-            });
-
-            $("#mouse").on(upEvent, function (e) {
-                if (clickPoint != null && Math.abs(clickPoint.x - downPoint.x) < 2 && Math.abs(clickPoint.y - downPoint.y) < 2) {
-                    switch (touchCount) {
-                        case 1:
-                            socket.emit('mouse-leftClick', id);
-                            // lily.tryRunHubCommand(function(hub) {     hub.server.leftMouseButtonClick(); });
-                            break;
-                        case 2:
-                            socket.emit('mouse-rightClick', id);
-                            // lily.tryRunHubCommand(function(hub) {     hub.server.rightMouseButtonClick(); });
-                            break;
-                        case 3:
-                            socket.emit('mouse-middleClick', id);
-                            // lily.tryRunHubCommand(function(hub) {     hub.server.middleMouseButtonClick(); });
-                            break;
-                    }
-                }
-
-                downPoint = null;
-
-                e.stopPropagation();
-                e.preventDefault();
-                return false;
-            });
-        })();
-    </script>
+    <!--<div class="flex orange hidden" id="mouse"></div>-->
+    <script src="app.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.1.1.min.js" charset="utf-8"></script>-->
+    <script src="https://rawgit.com/tklepzig/FullscreenJS/master/fullscreen.min.js" charset="utf-8"></script>
 </body>
 
 </html>

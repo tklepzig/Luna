@@ -1,0 +1,13 @@
+@import "../node_modules/flex-layout/scss/flex-layout";
+html {
+    height: 100%;
+}
+
+#main.fullscreen,
+#mouse.fullscreen {
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}

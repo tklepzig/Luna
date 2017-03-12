@@ -1,13 +1,10 @@
 import React from "react";
-import io from "socket.io-client";
+import PresentationControl from "./PresentationControl";
+
 class Start extends React.Component {
-    constructor() {
-        super();
-        this.socket = io();
-    }
 
     render() {
-        return <p>Nix</p>;
+        return <PresentationControl />;
     }
 }
 
