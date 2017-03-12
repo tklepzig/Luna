@@ -28,7 +28,8 @@
         ],
         "no-console": "warn",
         "prefer-const": "warn",
-        "prefer-arrow-callback": "warn"
+        "prefer-arrow-callback": "warn",
+        "prefer-template": "warn"
     },
     "plugins": [
         "react"
