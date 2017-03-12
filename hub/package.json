@@ -34,9 +34,9 @@
     "quagga": "^0.11.6",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "socket.io-client": "^1.7.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "yargs": "^7.0.1",
-    "socket.io-client": "^1.7.3"
+    "yargs": "^7.0.1"
   }
 }
