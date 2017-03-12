@@ -8,6 +8,13 @@ class Start extends React.Component {
         super();
         this.state = { mode: "start" };
         this.touchpad = this.touchpad.bind(this);
+        this.pres = this.pres.bind(this);
+
+        fullscreen.fullscreenChanged(() => {
+            if (!fullscreen.isFullscreen()) {
+                this.setState({ mode: "start" });
+            }
+        });
     }
 
     touchpad() {
@@ -23,7 +30,7 @@ class Start extends React.Component {
     render() {
         if (this.state.mode == "start")
             return <div>
-                <button>Presentation Control</button>
+                <button onClick={this.pres}>Presentation Control</button>
                 <button onClick={this.touchpad}>Touchpad</button>
             </div>;
         else if (this.state.mode == "pres")

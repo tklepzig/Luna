@@ -1,4 +1,15 @@
 class Fullscreen {
+    fullscreenChanged(callback) {
+        if ("onfullscreenchange" in document)
+            document.onfullscreenchange = callback;
+        else if ("onwebkitfullscreenchange" in document)
+            document.onwebkitfullscreenchange = callback;
+        else if ("onmsfullscreenchange" in document)
+            document.onmsfullscreenchange = callback;
+        else if ("onmozfullscreenchange" in document)
+            document.onmozfullscreenchange = callback;
+    }
+
     isSupported() {
         return document.mozFullScreenEnabled
             || document.fullscreenEnabled
