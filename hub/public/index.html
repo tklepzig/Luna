@@ -34,6 +34,7 @@
         <button class="button flex-15 light orange" data-key="P">Previous</button>
         <div style="color: #ededed; font-size: 0.8em; text-align: center;" class="id flex-3"></div>
         <button class="button flex orange" data-key="N">Next</button>
+        <button class="button flex orange" data-key="F4" data-modifiers="win">Toggle Mute</button>
     </div>
     <div class="flex orange hidden" id="mouse"></div>
     <script>
@@ -117,8 +118,8 @@
 
         $(document).on(upEvent, ".button[data-key]", function () {
             executeSocketCommand(function (e) {
-                socket.emit('keyboard-pressKey', id, e.key);
-            }, { key: $(this).data('key') });
+                socket.emit('keyboard-pressKey', id, e.key, e.modifiers);
+            }, { key: $(this).data('key'), modifiers: $(this).data("modifiers") });
         });
 
         $("#enableMouse").on(upEvent, function () {
