@@ -23,16 +23,10 @@ module.exports.keyboard = {
         }
 
         //modifiers
-        var modifiersString = '';
-        if (modifiers && modifiers.length > 0) {
-            for (var i = 0; i < modifiers.length; i++) {
-                modifiers[i] = modifiers[i].toLowerCase();
-                if (modifiers[i] === 'win') {
-                    modifiers[i] = 'super';
-                }
-
-                modifiersString += modifiers[i] + '+';
-            }
+        var modifiersString = "";
+        if (modifiers.length > 0) {
+            modifiers = modifiers.replace(/win/g, "super");
+            modifiersString = modifiers + "+";
         }
 
         exec('xdotool key ' + modifiersString + key);
