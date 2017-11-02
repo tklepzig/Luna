@@ -20,8 +20,7 @@ module.exports.media = {
 
 module.exports.keyboard = {
     pressKey: function(key, modifiers) {
-        //TODO: add modifier support
-        exec('python ' + path.resolve(__dirname + '/keyboard.py') + ' ' + key);
+        exec('python ' + path.resolve(__dirname + '/keyboard.py') + ' ' + key + ' ' + modifiers);
     }
 };
 
