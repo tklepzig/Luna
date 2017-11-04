@@ -2,64 +2,39 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="theme-color" content="black">
     <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=10.0, width=device-width" />
-    <title>Luna</title>
-    <link rel="stylesheet" href="./bower_components/lcars.web/dist/lcars.web.min.css">
-    <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
-    <script src="/socket.io/socket.io.js" charset="utf-8"></script>
-    <script src="./bower_components/lcars.web/dist/lcars.web.min.js" charset="utf-8"></script>
-    <script src="./bower_components/fullscreenjs/fullscreen.min.js" charset="utf-8"></script>
+    <title>Hello React</title>
+    <link rel="manifest" href="manifest.json">
     <style media="screen">
         #main.fullscreen,
         #mouse.fullscreen {
             width: 100%;
         }
-        
+
         .hidden {
             display: none;
         }
     </style>
 </head>
 
-<body ontouchstart="" class="layout-v layout-fill layout-margin">
-    <div class="flex-15 layout-h">
-        <button class="button flex dim blue" id="enterFullscreen">Enter Fullscreen</button>
-        <button class="button flex dim orange" id="enableMouse">Enable Mouse</button>
+<body>
+    <div id="root"></div>
+    <div>
+        <button id="enterFullscreen">Enter Fullscreen</button>
+        <button id="enableMouse">Enable Mouse</button>
     </div>
-    <div class="flex-1"></div>
-    <div style="background: inherit;" class="flex layout-v layout-margin" id="main">
-        <button class="button flex-15 light orange" data-key="P">Previous</button>
-        <div style="color: #ededed; font-size: 0.8em; text-align: center;" class="id flex-3"></div>
-        <button class="button flex orange" data-key="N">Next</button>
-        <button class="button flex orange" data-key="F4" data-modifiers="win">Toggle Mute</button>
+    <div id="main">
+        <button data-key="P">Previous</button>
+        <div class="id"></div>
+        <button data-key="N">Next</button>
+        <button data-key="F4" data-modifiers="win">Toggle Mute</buttonbutton>
     </div>
-    <div class="flex orange hidden" id="mouse"></div>
-    <script>
-        var socket = io();
-
-        function makeid() {
-            var id = "";
-            var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-            for (var i = 0; i < 6; i++)
-                id += possible.charAt(Math.floor(Math.random() * possible.length));
-
-            return id;
-        }
-
-        var id;
-        if (!localStorage.connectionId) {
-            id = makeid();
-            localStorage.connectionId = id;
-        }
-        else {
-            id = localStorage.connectionId;
-        }
-        $(".id").text(id);
-    </script>
+    <div id="mouse"></div>
     <script>
         var downEvent;
         var moveEvent;
@@ -101,19 +76,6 @@
             getTouchCount = function () {
                 return 1;
             }
-        }
-
-        function executeSocketCommand(action, args) {
-            var pingTimeout = setTimeout(function () {
-                socket.close();
-                socket.connect();
-                action(args);
-            }, 1000);
-
-            socket.emit("ping", function () {
-                clearTimeout(pingTimeout);
-                action(args);
-            });
         }
 
         $(document).on(upEvent, ".button[data-key]", function () {
@@ -190,8 +152,6 @@
 
                         socket.emit('mouse-move', id, offset);
 
-                        // lily.tryRunHubCommand(function(hub) {     hub.server.moveMouse(offset.x, offset.y); });
-
                         break;
                     case 2:
                         var delta;
@@ -201,14 +161,12 @@
                                 delta *= -1;
 
                             socket.emit('mouse-hWheel', id, delta);
-                            // lily.tryRunHubCommand(function(hub) {     hub.server.mouseHWheel(delta); });
                         } else {
                             delta = Math.floor(Math.abs(offset.y) / 2) * 60;
                             if (offset.y > 0)
                                 delta *= -1;
 
                             socket.emit('mouse-wheel', id, delta);
-                            // lily.tryRunHubCommand(function(hub) {     hub.server.mouseWheel(delta); });
                         }
 
                         break;
@@ -224,15 +182,12 @@
                     switch (touchCount) {
                         case 1:
                             socket.emit('mouse-leftClick', id);
-                            // lily.tryRunHubCommand(function(hub) {     hub.server.leftMouseButtonClick(); });
                             break;
                         case 2:
                             socket.emit('mouse-rightClick', id);
-                            // lily.tryRunHubCommand(function(hub) {     hub.server.rightMouseButtonClick(); });
                             break;
                         case 3:
                             socket.emit('mouse-middleClick', id);
-                            // lily.tryRunHubCommand(function(hub) {     hub.server.middleMouseButtonClick(); });
                             break;
                     }
                 }
