@@ -5,6 +5,8 @@
     ],
     "rules": {
         "no-implicit-dependencies": false,
-        "jsx-boolean-value": false
+        "jsx-boolean-value": false,
+        "trailing-comma": false,
+        "no-null-keyword": true
     }
 }
