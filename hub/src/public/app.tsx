@@ -1,8 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import Button from "./components/Button";
-
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./app.scss";
+import Start from "./components/Start";
 
-ReactDOM.render(<Button />,
-    document.getElementById("root"));
+ReactDOM.render((
+    <BrowserRouter>
+        <Switch>
+            <Route exact path="/" component={Start} />
+        </Switch>
+    </BrowserRouter>
+), document.getElementById("root"));

@@ -30,7 +30,8 @@ socketIoServer.on("connection", (socket) => {
     socket.on("mouse-middleClick", (id) => socket.broadcast.emit("mouse-middleClick", id));
 });
 
-app.use("/", express.static(path.resolve(`${__dirname}/../public`)));
+app.use(express.static(path.resolve(`${__dirname}/../public`)));
+app.get("*", (req: any, res: any) => res.sendFile(path.resolve(`${__dirname}/../public/index.html`)));
 
 // tslint:disable-next-line:no-console
 app.listen(8080, () => console.log("listening on *:8080"));
