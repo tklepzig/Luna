@@ -6,7 +6,7 @@ import * as socketIo from "socket.io";
 const port = process.env.PORT || 8080;
 const app: any = express();
 const httpServer = http.createServer(app);
-const socketIoServer = socketIo.listen(httpServer);
+const socketIoServer = socketIo(httpServer);
 
 socketIoServer.on("connection", (socket) => {
     const clientIp = socket.request.connection.remoteAddress;
@@ -34,4 +34,4 @@ app.use(express.static(path.resolve(`${__dirname}/../public`)));
 app.get("*", (req: any, res: any) => res.sendFile(path.resolve(`${__dirname}/../public/index.html`)));
 
 // tslint:disable-next-line:no-console
-app.listen(8080, () => console.log("listening on *:8080"));
+httpServer.listen(8080, () => console.log("listening on *:8080"));
