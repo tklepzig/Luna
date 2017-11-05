@@ -67,16 +67,20 @@ class Luna {
     }
 
     private executeSocketCommand(event: string, ...args: any[]) {
-        const pingTimeout = setTimeout(() => {
-            socketIoServer.close();
-            socketIoServer.connect();
-            socketIoServer.emit(event, this.connectionId, ...args);
-        }, 1000);
+        socketIoServer.emit(event, this.connectionId, ...args);
 
-        socketIoServer.emit("ping", () => {
-            clearTimeout(pingTimeout);
-            socketIoServer.emit(event, this.connectionId, ...args);
-        });
+        // this is waaaaay tooooo slooooow...
+        // --> find another way, e.g. check if the current *sent* command was successful
+        // const pingTimeout = setTimeout(() => {
+        //     socketIoServer.close();
+        //     socketIoServer.connect();
+        //     socketIoServer.emit(event, this.connectionId, ...args);
+        // }, 1000);
+
+        // socketIoServer.emit("ping", () => {
+        //     clearTimeout(pingTimeout);
+        //     socketIoServer.emit(event, this.connectionId, ...args);
+        // });
     }
 }
 
