@@ -25,11 +25,11 @@ export default class Touchpad extends React.Component {
 
         if (this.deviceSupportsTouchEvents()) {
             this.getMousePosition = (e: any) => ({
-                x: e.originalEvent.targetTouches[0].pageX,
-                y: e.originalEvent.targetTouches[0].pageY
+                x: e.targetTouches[0].pageX,
+                y: e.targetTouches[0].pageY
             });
 
-            this.getTouchCount = (e: any) => e.originalEvent.touches.length;
+            this.getTouchCount = (e: any) => e.touches.length;
         } else {
             this.getMousePosition = (e: any) => ({
                 x: e.pageX, y: e.pageY
