@@ -36,8 +36,8 @@ const server = {
     plugins: [
         new CleanWebpackPlugin(["./dist"]),
         new CopyWebpackPlugin([
-            { from: "./package.json" },
-            { from: "./yarn.lock" }
+            { from: "./package.json", to: ".." },
+            { from: "./yarn.lock", to: ".." }
         ])
     ]
 };
