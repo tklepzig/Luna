@@ -34,4 +34,4 @@ app.use(express.static(path.resolve(`${__dirname}/../public`)));
 app.get("*", (req: any, res: any) => res.sendFile(path.resolve(`${__dirname}/../public/index.html`)));
 
 // tslint:disable-next-line:no-console
-httpServer.listen(8080, () => console.log("listening on *:8080"));
+httpServer.listen(port, () => console.log(`listening on *:${port}`));
