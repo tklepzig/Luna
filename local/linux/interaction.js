@@ -24,7 +24,7 @@ module.exports.keyboard = {
 
         //modifiers
         var modifiersString = "";
-        if (modifiers.length > 0) {
+        if (modifiers && modifiers.length > 0) {
             modifiers = modifiers.replace(/win/g, "super");
             modifiersString = modifiers + "+";
         }
