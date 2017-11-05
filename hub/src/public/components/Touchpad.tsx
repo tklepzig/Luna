@@ -1,9 +1,7 @@
 import * as React from "react";
+import luna, { MouseButton, MouseWheelDirection } from "../services/Luna";
 
-export interface ITouchpadProps {
-}
-
-export default class Touchpad extends React.Component<ITouchpadProps, any> {
+export default class Touchpad extends React.Component {
     private clickPoint: { x: any; y: any; };
     private touchCount: number;
     private downPoint?: { x: any; y: any; };
@@ -14,8 +12,8 @@ export default class Touchpad extends React.Component<ITouchpadProps, any> {
     private upEvent: string;
     private downEvent: string;
 
-    constructor(props: ITouchpadProps) {
-        super(props);
+    constructor() {
+        super();
 
         this.tapDown = this.tapDown.bind(this);
         this.tapUp = this.tapUp.bind(this);
@@ -71,13 +69,13 @@ export default class Touchpad extends React.Component<ITouchpadProps, any> {
             && Math.abs(this.clickPoint.y - this.downPoint.y) < 2) {
             switch (this.touchCount) {
                 case 1:
-                    // socket.emit("mouse-leftClick", id);
+                    luna.sendMouseClick(MouseButton.Left);
                     break;
                 case 2:
-                    // socket.emit("mouse-rightClick", id);
+                    luna.sendMouseClick(MouseButton.Right);
                     break;
                 case 3:
-                    // socket.emit("mouse-middleClick", id);
+                    luna.sendMouseClick(MouseButton.Middle);
                     break;
             }
         }
@@ -122,7 +120,7 @@ export default class Touchpad extends React.Component<ITouchpadProps, any> {
                     offset.y *= (offset.y.toString().length + 2);
                 }
 
-                // socket.emit('mouse-move', id, offset);
+                luna.sendMouseMove(offset);
 
                 break;
             case 2:
@@ -133,14 +131,14 @@ export default class Touchpad extends React.Component<ITouchpadProps, any> {
                         delta *= -1;
                     }
 
-                    // socket.emit("mouse-hWheel", id, delta);
+                    luna.sendMouseWheel(MouseWheelDirection.Horizontal, delta);
                 } else {
                     delta = Math.floor(Math.abs(offset.y) / 2) * 60;
                     if (offset.y > 0) {
                         delta *= -1;
                     }
 
-                    // socket.emit("mouse-wheel", id, delta);
+                    luna.sendMouseWheel(MouseWheelDirection.Vertical, delta);
                 }
 
                 break;

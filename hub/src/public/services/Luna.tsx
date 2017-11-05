@@ -1,5 +1,16 @@
 import socketIoServer from "./SocketIoService";
 
+export enum MouseButton {
+    Left,
+    Right,
+    Middle
+}
+
+export enum MouseWheelDirection {
+    Vertical,
+    Horizontal
+}
+
 class Luna {
     private connectionId: string;
 
@@ -9,6 +20,27 @@ class Luna {
         } else {
             this.connectionId = localStorage.connectionId;
         }
+    }
+
+    public sendKeyPress(key: string, modifier?: string) {
+        // executeSocketCommand(function(e) {
+        //     socket.emit('keyboard-pressKey', id, e.key, e.modifiers);
+        // }, { key: $(this).data('key'), modifiers: $(this).data("modifiers") });
+    }
+
+    public sendMouseClick(button: MouseButton) {
+        // socket.emit("mouse-leftClick", id);
+        // socket.emit("mouse-rightClick", id);
+        // socket.emit("mouse-middleClick", id);
+    }
+
+    public sendMouseMove(offset: { x: number, y: number }) {
+        // socket.emit('mouse-move', id, offset);
+    }
+
+    public sendMouseWheel(direction: MouseWheelDirection, delta: number) {
+        // socket.emit("mouse-hWheel", id, delta);
+        // socket.emit("mouse-wheel", id, delta);
     }
 
     private makeid() {
@@ -35,3 +67,5 @@ class Luna {
         });
     }
 }
+
+export default new Luna();

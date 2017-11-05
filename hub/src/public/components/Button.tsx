@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface IButtonProps {
-
+    onPress?: (e: any) => void;
 }
 
 export default class Button extends React.Component<IButtonProps, any> {
@@ -9,19 +9,13 @@ export default class Button extends React.Component<IButtonProps, any> {
 
     constructor(props: IButtonProps) {
         super(props);
-        this.press = this.press.bind(this);
         this.pressEvent = ("ontouchstart" in window) ? "onTouchEnd" : "onMouseUp";
     }
 
     public render() {
-        const downEventAttribute = { [this.pressEvent]: this.press };
+        const downEventAttribute = { [this.pressEvent]: this.props.onPress };
         return (
-            <button {...downEventAttribute}>
-                Test
-      </button>
+            <button {...downEventAttribute}>{this.props.children}</button>
         );
-    }
-
-    private press() {
     }
 }
