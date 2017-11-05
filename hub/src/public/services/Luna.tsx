@@ -23,24 +23,36 @@ class Luna {
     }
 
     public sendKeyPress(key: string, modifier?: string) {
-        // executeSocketCommand(function(e) {
-        //     socket.emit('keyboard-pressKey', id, e.key, e.modifiers);
-        // }, { key: $(this).data('key'), modifiers: $(this).data("modifiers") });
+        this.executeSocketCommand("keyboard-pressKey", key, modifier);
     }
 
     public sendMouseClick(button: MouseButton) {
-        // socket.emit("mouse-leftClick", id);
-        // socket.emit("mouse-rightClick", id);
-        // socket.emit("mouse-middleClick", id);
+        switch (button) {
+            case MouseButton.Left:
+                this.executeSocketCommand("mouse-leftClick");
+                break;
+            case MouseButton.Right:
+                this.executeSocketCommand("mouse-rightClick");
+                break;
+            case MouseButton.Middle:
+                this.executeSocketCommand("mouse-middleClick");
+                break;
+        }
     }
 
     public sendMouseMove(offset: { x: number, y: number }) {
-        // socket.emit('mouse-move', id, offset);
+        this.executeSocketCommand("mouse-move", offset);
     }
 
     public sendMouseWheel(direction: MouseWheelDirection, delta: number) {
-        // socket.emit("mouse-hWheel", id, delta);
-        // socket.emit("mouse-wheel", id, delta);
+        switch (direction) {
+            case MouseWheelDirection.Vertical:
+                this.executeSocketCommand("mouse-wheel", delta);
+                break;
+            case MouseWheelDirection.Horizontal:
+                this.executeSocketCommand("mouse-hWheel", delta);
+                break;
+        }
     }
 
     private makeid() {
@@ -54,16 +66,16 @@ class Luna {
         return id;
     }
 
-    private executeSocketCommand(action: (args: any) => void, args: any) {
+    private executeSocketCommand(event: string, ...args: any[]) {
         const pingTimeout = setTimeout(() => {
             socketIoServer.close();
             socketIoServer.connect();
-            action(args);
+            socketIoServer.emit(event, this.connectionId, ...args);
         }, 1000);
 
         socketIoServer.emit("ping", () => {
             clearTimeout(pingTimeout);
-            action(args);
+            socketIoServer.emit(event, this.connectionId, ...args);
         });
     }
 }
