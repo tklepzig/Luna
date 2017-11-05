@@ -1,16 +1,30 @@
 import * as React from "react";
-import KeyboardButton from "./KeyboardButton";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import NavButton from "./NavButton";
 import Touchpad from "./Touchpad";
 
-export default class Start extends React.Component {
+class Start extends React.Component<RouteComponentProps<any>> {
+
+    constructor() {
+        super();
+        this.navigate = this.navigate.bind(this);
+    }
+
     public render() {
         return (
             <div>
-                <KeyboardButton keyString="P">Previous</KeyboardButton>
-                <KeyboardButton keyString="N">Next</KeyboardButton>
-                <KeyboardButton keyString="F4" modifierString="win">Toggle Mute</KeyboardButton>
-                <Touchpad />
+                <NavButton path="/pres" onNavigate={this.navigate}>Presentation</NavButton>
+                <NavButton path="/mouse" onNavigate={this.navigate}>Touchpad</NavButton>
+                <NavButton path="/comm" onNavigate={this.navigate}>Communication</NavButton>
             </div>
         );
     }
+
+    private navigate(path: string) {
+        this.props.history.push(path);
+        // TODO: add generic fullscreen logic
+        // document.body.webkitRequestFullscreen();
+    }
 }
+
+export default withRouter(Start);
