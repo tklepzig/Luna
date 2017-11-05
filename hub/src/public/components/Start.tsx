@@ -1,5 +1,6 @@
 import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import fullscreen from "../services/Fullscreen";
 import NavButton from "./NavButton";
 import Touchpad from "./Touchpad";
 
@@ -22,8 +23,7 @@ class Start extends React.Component<RouteComponentProps<any>> {
 
     private navigate(path: string) {
         this.props.history.push(path);
-        // TODO: add generic fullscreen logic
-        // document.body.webkitRequestFullscreen();
+        fullscreen.request(document.body);
     }
 }
 
