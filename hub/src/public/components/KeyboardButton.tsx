@@ -3,8 +3,8 @@ import luna, { MouseButton, MouseWheelDirection } from "../services/Luna";
 import Button from "./Button";
 
 export interface IKeyboardButtonProps {
-    key: string;
-    modifier?: string;
+    keyString: string;
+    modifierString?: string;
 }
 
 export default class KeyboardButton extends React.Component<IKeyboardButtonProps, any> {
@@ -22,6 +22,6 @@ export default class KeyboardButton extends React.Component<IKeyboardButtonProps
     }
 
     private press(e: any) {
-        luna.sendKeyPress(this.props.key, this.props.modifier);
+        luna.sendKeyPress(this.props.keyString, this.props.modifierString);
     }
 }

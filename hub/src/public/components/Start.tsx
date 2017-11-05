@@ -6,9 +6,9 @@ export default class Start extends React.Component {
     public render() {
         return (
             <div>
-                <KeyboardButton key="P">Previous</KeyboardButton>
-                <KeyboardButton key="N">Next</KeyboardButton>
-                <KeyboardButton key="F4" modifier="win">Toggle Mute</KeyboardButton>
+                <KeyboardButton keyString="P">Previous</KeyboardButton>
+                <KeyboardButton keyString="N">Next</KeyboardButton>
+                <KeyboardButton keyString="F4" modifierString="win">Toggle Mute</KeyboardButton>
                 <Touchpad />
             </div>
         );
