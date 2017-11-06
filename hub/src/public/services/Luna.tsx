@@ -14,6 +14,9 @@ export enum MouseWheelDirection {
 class Luna {
     private connectionId: string;
 
+    get ConnectionId(): string {
+        return this.connectionId;
+    }
     constructor() {
         if (!localStorage.connectionId) {
             localStorage.connectionId = this.connectionId = this.makeid();

@@ -4,6 +4,7 @@ import Button from "./Button";
 export interface INavButtonProps {
     path: string;
     onNavigate: (path: string) => void;
+    flex?: number;
 }
 
 export default class NavButton extends React.Component<INavButtonProps> {
@@ -13,7 +14,7 @@ export default class NavButton extends React.Component<INavButtonProps> {
     }
 
     public render() {
-        return <Button onPress={this.navigate}>{this.props.children}</Button>;
+        return <Button flex={this.props.flex} onPress={this.navigate}>{this.props.children}</Button>;
     }
 
     private navigate() {
