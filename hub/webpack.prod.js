@@ -16,7 +16,8 @@ const client = {
                     use: [{
                         loader: "css-loader",
                         options: {
-                            minimize: true
+                            minimize: true,
+                            url: false //don't handle url() imports to avoid treating font-urls as modules
                         }
                     }, {
                         loader: "sass-loader",
