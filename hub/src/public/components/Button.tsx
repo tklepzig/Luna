@@ -1,12 +1,24 @@
 import * as React from "react";
 
+export enum ButtonColor {
+    Blue,
+    DarkBlue,
+    Orange,
+    Yellow,
+    Green
+}
+
 export interface IButtonProps {
     onPress?: (e: any) => void;
     flex?: number;
-    secondary?: boolean;
+    color?: ButtonColor;
 }
 
 export default class Button extends React.Component<IButtonProps, any> {
+    public static defaultProps: Partial<IButtonProps> = {
+        color: ButtonColor.Blue
+    };
+
     private pressEvent: string;
 
     constructor(props: IButtonProps) {
@@ -23,8 +35,22 @@ export default class Button extends React.Component<IButtonProps, any> {
             style = { flex: this.props.flex };
         }
 
-        if (this.props.secondary === true) {
-            className += "secondary";
+        switch (this.props.color) {
+            case ButtonColor.Blue:
+                className += " blue";
+                break;
+            case ButtonColor.DarkBlue:
+                className += " dark-blue";
+                break;
+            case ButtonColor.Orange:
+                className += " orange";
+                break;
+            case ButtonColor.Yellow:
+                className += " yellow";
+                break;
+            case ButtonColor.Green:
+                className += " green";
+                break;
         }
 
         return (

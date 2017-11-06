@@ -1,11 +1,12 @@
 import * as React from "react";
 import KeyboardButton from "./KeyboardButton";
+import { Panel } from "./Panel";
 
 const Presentation: React.SFC = () => (
-    <div>
+    <Panel>
         <KeyboardButton keyString="P">Previous</KeyboardButton>
         <KeyboardButton keyString="N">Next</KeyboardButton>
-    </div>
+    </Panel>
 );
 
 export default Presentation;

@@ -27,19 +27,3 @@ body {
     height: 100%;
     display: flex;
 }
-
-%group {
-    flex: 1;
-    display: flex;
-    padding: 4px;
-}
-
-.group-v {
-    @extend %group;
-    flex-flow: column nowrap;
-}
-
-.group-h {
-    @extend %group;
-    flex-flow: row nowrap;
-}

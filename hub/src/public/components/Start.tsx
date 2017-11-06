@@ -2,9 +2,10 @@ import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import fullscreen from "../services/Fullscreen";
 import luna from "../services/Luna";
-import Button from "./Button";
+import Button, { ButtonColor } from "./Button";
 import { Footer } from "./Footer";
 import NavButton from "./NavButton";
+import { Orientation, Panel } from "./Panel";
 import Touchpad from "./Touchpad";
 
 class Start extends React.Component<RouteComponentProps<any>> {
@@ -16,13 +17,13 @@ class Start extends React.Component<RouteComponentProps<any>> {
 
     public render() {
         return (
-            <div className="group-v">
+            <Panel>
                 <NavButton flex={1} path="/pres" onNavigate={this.navigate}>Presentation</NavButton>
                 <NavButton flex={1} path="/mouse" onNavigate={this.navigate}>Touchpad</NavButton>
                 <NavButton flex={1} path="/comm" onNavigate={this.navigate}>Communication</NavButton>
                 <div style={{ flex: 3 }} />
                 <Footer>Connection ID: {luna.ConnectionId}</Footer>
-            </div>
+            </Panel>
         );
     }
 

@@ -1,10 +1,11 @@
 import * as React from "react";
 import luna, { MouseButton, MouseWheelDirection } from "../services/Luna";
-import Button from "./Button";
+import Button, { ButtonColor } from "./Button";
 
 export interface IKeyboardButtonProps {
     keyString: string;
     modifierString?: string;
+    color?: ButtonColor;
 }
 
 export default class KeyboardButton extends React.Component<IKeyboardButtonProps, any> {
@@ -17,7 +18,7 @@ export default class KeyboardButton extends React.Component<IKeyboardButtonProps
 
     public render() {
         return (
-            <Button onPress={this.press}>{this.props.children}</Button>
+            <Button color={this.props.color} onPress={this.press}>{this.props.children}</Button>
         );
     }
 

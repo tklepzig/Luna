@@ -16,7 +16,7 @@ button {
         cursor: default;
         opacity: 0.5;
     }
-    &.darkBlue {
+    &.dark-blue {
         background: $darkBlue;
         color: $foreground;
         &:hover:not([disabled]) {

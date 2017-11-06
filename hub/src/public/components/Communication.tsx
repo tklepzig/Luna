@@ -1,10 +1,11 @@
 import * as React from "react";
 import KeyboardButton from "./KeyboardButton";
+import { Panel } from "./Panel";
 
 const Communication: React.SFC = () => (
-    <div>
+    <Panel>
         <KeyboardButton keyString="F4" modifierString="win">Toggle Mute</KeyboardButton>
-    </div>
+    </Panel>
 );
 
 export default Communication;
