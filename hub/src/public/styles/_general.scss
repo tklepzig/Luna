@@ -1,17 +1,26 @@
 @import "./variables";
 body,
 html {
+    background: $primaryColor;
     height: 100%;
     min-height: 100%;
     margin: 0;
 }
 
 body {
-    background: $primaryColor;
-    color: #ededed;
+    color: $textColor;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
+    &:fullscreen {
+        width: 100%;
+    }
+    &:-webkit-full-screen {
+        width: 100%;
+    }
+    &:-moz-full-screen {
+        width: 100%;
+    }
 }
 
 #root {
@@ -35,46 +44,3 @@ body {
     flex-flow: row nowrap;
 }
 
-button {
-    font-family: inherit;
-    font-size: 0.9rem;
-    color: $textColor;
-    padding: 20px 12px;
-    min-width: 80px;
-    outline: none;
-    margin: 4px;
-    box-sizing: content-box;
-    cursor: pointer;
-    transition: background 0.15s ease-out;
-    user-select: none;
-    background: $secondaryColor;
-    border: 1px solid darken($primaryColor, 5%);
-    box-shadow: 0 0 6px 0 darken($primaryColor, 10%);
-    &:hover:not([disabled]) {
-        background: lighten($secondaryColor, 5%);
-    }
-    &:active:not([disabled]) {
-        background: darken($secondaryColor, 15%);
-    }
-    &[disabled] {
-        cursor: default;
-        opacity: 0.5;
-    }
-    &.secondary {
-        background: transparent;
-        border: 2px solid $secondaryColor;
-        border: none;
-        box-shadow: 0 0 2px 0 darken($primaryColor, 10%);
-        box-shadow: 0 0 40px 0px darken($primaryColor, 10%);
-        margin: -4px;
-        padding: 16px 12px;
-        padding-top: 12px;
-        color: rgba($textColor, 0.5);
-        &:hover:not([disabled]) {
-            background: rgba(lighten($primaryColor, 10%), 0.4);
-        }
-        &:active:not([disabled]) {
-            background: rgba(darken($primaryColor, 5%), 0.4);
-        }
-    }
-}

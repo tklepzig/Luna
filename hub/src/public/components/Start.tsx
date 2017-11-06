@@ -3,6 +3,7 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import fullscreen from "../services/Fullscreen";
 import luna from "../services/Luna";
 import Button from "./Button";
+import { Footer } from "./Footer";
 import NavButton from "./NavButton";
 import Touchpad from "./Touchpad";
 
@@ -20,7 +21,7 @@ class Start extends React.Component<RouteComponentProps<any>> {
                 <NavButton flex={1} path="/mouse" onNavigate={this.navigate}>Touchpad</NavButton>
                 <NavButton flex={1} path="/comm" onNavigate={this.navigate}>Communication</NavButton>
                 <div style={{ flex: 3 }} />
-                <Button secondary>Connection ID: {luna.ConnectionId}</Button>
+                <Footer>Connection ID: {luna.ConnectionId}</Footer>
             </div>
         );
     }
