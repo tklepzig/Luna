@@ -1,14 +1,14 @@
 @import "./variables";
 body,
 html {
-    background: $primaryColor;
+    background: $background;
     height: 100%;
     min-height: 100%;
     margin: 0;
 }
 
 body {
-    color: $textColor;
+    color: $foreground;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     touch-action: none;
     -webkit-tap-highlight-color: transparent;
@@ -43,4 +43,3 @@ body {
     @extend %group;
     flex-flow: row nowrap;
 }
-

@@ -2,7 +2,6 @@
 button {
     font-family: inherit;
     font-size: 0.9rem;
-    color: $textColor;
     padding: 20px 12px;
     min-width: 80px;
     outline: none;
@@ -11,29 +10,60 @@ button {
     cursor: pointer;
     transition: background 0.15s ease-out;
     user-select: none;
-    background: $secondaryColor;
-    border: 1px solid darken($primaryColor, 5%);
-    box-shadow: 0 0 6px 0 darken($primaryColor, 10%);
-    &:hover:not([disabled]) {
-        background: lighten($secondaryColor, 5%);
-    }
-    &:active:not([disabled]) {
-        background: darken($secondaryColor, 15%);
-    }
+    border: 1px solid darken($background, 5%);
+    box-shadow: 0 0 6px 0 darken($background, 10%);
     &[disabled] {
         cursor: default;
         opacity: 0.5;
     }
-    &.secondary {
-        background: transparent;
-        border: 2px solid $secondaryColor;
-        box-shadow: 0 0 2px 0 darken($primaryColor, 10%);
-        color: rgba($textColor, 0.5);
+    &.darkBlue {
+        background: $darkBlue;
+        color: $foreground;
         &:hover:not([disabled]) {
-            background: rgba(lighten($primaryColor, 10%), 0.4);
+            background: lighten($darkBlue, 5%);
         }
         &:active:not([disabled]) {
-            background: rgba(darken($primaryColor, 5%), 0.4);
+            background: darken($darkBlue, 15%);
+        }
+    }
+    &.orange {
+        background: $orange;
+        color: $background;
+        &:hover:not([disabled]) {
+            background: lighten($orange, 5%);
+        }
+        &:active:not([disabled]) {
+            background: darken($orange, 15%);
+        }
+    }
+    &.blue {
+        background: $blue;
+        color: $foreground;
+        &:hover:not([disabled]) {
+            background: lighten($blue, 5%);
+        }
+        &:active:not([disabled]) {
+            background: darken($blue, 15%);
+        }
+    }
+    &.yellow {
+        background: $yellow;
+        color: $background;
+        &:hover:not([disabled]) {
+            background: lighten($yellow, 5%);
+        }
+        &:active:not([disabled]) {
+            background: darken($yellow, 15%);
+        }
+    }
+    &.green {
+        background: $green;
+        color: $foreground;
+        &:hover:not([disabled]) {
+            background: lighten($green, 5%);
+        }
+        &:active:not([disabled]) {
+            background: darken($green, 15%);
         }
     }
 }
