@@ -1,27 +1,19 @@
 import * as React from "react";
 
-export enum ButtonColor {
-    Blue,
-    DarkBlue,
-    Orange,
-    Yellow,
-    Green
-}
-
-export interface IButtonProps {
+export interface ButtonProps {
     onPress?: (e: any) => void;
     flex?: number;
-    color?: ButtonColor;
+    color?: string;
 }
 
-export default class Button extends React.Component<IButtonProps, any> {
-    public static defaultProps: Partial<IButtonProps> = {
-        color: ButtonColor.Blue
+export default class Button extends React.Component<ButtonProps, any> {
+    public static defaultProps: Partial<ButtonProps> = {
+        color: "blue"
     };
 
     private pressEvent: string;
 
-    constructor(props: IButtonProps) {
+    constructor(props: ButtonProps) {
         super(props);
         this.pressEvent = ("ontouchstart" in window) ? "onTouchEnd" : "onMouseUp";
     }
@@ -29,28 +21,10 @@ export default class Button extends React.Component<IButtonProps, any> {
     public render() {
         const downEventAttribute = { [this.pressEvent]: this.props.onPress };
         let style = {};
-        let className = "";
+        const className = `${this.props.color}`;
 
         if (this.props.flex) {
             style = { flex: this.props.flex };
-        }
-
-        switch (this.props.color) {
-            case ButtonColor.Blue:
-                className += " blue";
-                break;
-            case ButtonColor.DarkBlue:
-                className += " dark-blue";
-                break;
-            case ButtonColor.Orange:
-                className += " orange";
-                break;
-            case ButtonColor.Yellow:
-                className += " yellow";
-                break;
-            case ButtonColor.Green:
-                className += " green";
-                break;
         }
 
         return (

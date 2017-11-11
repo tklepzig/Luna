@@ -7,6 +7,7 @@
         "no-implicit-dependencies": false,
         "jsx-boolean-value": false,
         "trailing-comma": false,
-        "no-null-keyword": true
+        "no-null-keyword": true,
+        "interface-name": false
     }
 }

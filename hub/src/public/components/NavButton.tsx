@@ -1,11 +1,11 @@
 import * as React from "react";
-import Button, { ButtonColor } from "./Button";
+import Button from "./Button";
 
 export interface INavButtonProps {
     path: string;
     onNavigate: (path: string) => void;
     flex?: number;
-    color?: ButtonColor;
+    color?: string;
 }
 
 export default class NavButton extends React.Component<INavButtonProps> {
