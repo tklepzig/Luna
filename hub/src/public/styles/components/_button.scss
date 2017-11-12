@@ -10,60 +10,16 @@ button {
     cursor: pointer;
     transition: background 0.15s ease-out;
     user-select: none;
-    border: 1px solid darken($background, 5%);
+    border: none;
+    outline: 1px solid darken($background, 5%);
     box-shadow: 0 0 6px 0 darken($background, 10%);
     &[disabled] {
         cursor: default;
         opacity: 0.5;
     }
-    // &.dark-blue {
-    //     background: $darkBlue;
-    //     color: $foreground;
-    //     &:hover:not([disabled]) {
-    //         background: lighten($darkBlue, 5%);
-    //     }
-    //     &:active:not([disabled]) {
-    //         background: darken($darkBlue, 15%);
-    //     }
-    // }
-    // &.orange {
-    //     background: $orange;
-    //     color: $background;
-    //     &:hover:not([disabled]) {
-    //         background: lighten($orange, 5%);
-    //     }
-    //     &:active:not([disabled]) {
-    //         background: darken($orange, 15%);
-    //     }
-    // }
-    // &.blue {
-    //     background: $blue;
-    //     color: $foreground;
-    //     &:hover:not([disabled]) {
-    //         background: lighten($blue, 5%);
-    //     }
-    //     &:active:not([disabled]) {
-    //         background: darken($blue, 15%);
-    //     }
-    // }
-    // &.yellow {
-    //     background: $yellow;
-    //     color: $background;
-    //     &:hover:not([disabled]) {
-    //         background: lighten($yellow, 5%);
-    //     }
-    //     &:active:not([disabled]) {
-    //         background: darken($yellow, 15%);
-    //     }
-    // }
-    // &.green {
-    //     background: $green;
-    //     color: $foreground;
-    //     &:hover:not([disabled]) {
-    //         background: lighten($green, 5%);
-    //     }
-    //     &:active:not([disabled]) {
-    //         background: darken($green, 15%);
-    //     }
-    // }
+    &.secondary {
+        background: $background;
+        border: 1px solid lighten($background, 20%);
+        color: $foreground;
+    }
 }

@@ -4,8 +4,8 @@ import { Panel } from "./Panel";
 
 const Presentation: React.SFC = () => (
     <Panel>
-        <KeyboardButton color="dim blue" flex={1} keyString="P">Previous</KeyboardButton>
-        <KeyboardButton flex={5} keyString="N">Next</KeyboardButton>
+        <KeyboardButton color="dim orange" flex={1} keyString="P">Previous</KeyboardButton>
+        <KeyboardButton color="orange" flex={5} keyString="N">Next</KeyboardButton>
     </Panel>
 );
 

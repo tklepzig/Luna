@@ -18,9 +18,9 @@ class Start extends React.Component<RouteComponentProps<any>> {
     public render() {
         return (
             <Panel>
-                <NavButton flex={1} path="/pres" onNavigate={this.navigate}>Presentation</NavButton>
-                <NavButton color="light green" flex={1} path="/mouse" onNavigate={this.navigate}>Touchpad</NavButton>
-                <NavButton color="dim orange" flex={1} path="/comm" onNavigate={this.navigate}>Communication</NavButton>
+                <NavButton color="orange" flex={1} path="/pres" onNavigate={this.navigate}>Presentation</NavButton>
+                <NavButton color="secondary" flex={1} path="/mouse" onNavigate={this.navigate}>Touchpad</NavButton>
+                <NavButton color="light yellow" flex={1} path="/comm" onNavigate={this.navigate}>Communication</NavButton>
                 <div style={{ flex: 3 }} />
                 <Footer>Connection ID: {luna.ConnectionId}</Footer>
             </Panel>

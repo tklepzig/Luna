@@ -4,13 +4,7 @@ import { Panel } from "./Panel";
 
 const Communication: React.SFC = () => (
     <Panel>
-        <KeyboardButton
-            color="light orange"
-            keyString="F4"
-            modifierString="win"
-        >
-            Toggle Mute
-        </KeyboardButton>
+        <KeyboardButton color="light yellow" keyString="F4" modifierString="win">Toggle Mute</KeyboardButton>
     </Panel>
 );
 
