@@ -1,0 +1,16 @@
+@import "../variables";
+.footer {
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    box-sizing: content-box;
+    cursor: default;
+    background: transparent;
+    border: none;
+    box-shadow: 0 0 40px 0px darken($background, 10%);
+    margin: -4px;
+    padding: 16px 12px;
+    padding-top: 12px;
+    color: rgba($foreground, 0.5);
+    text-align: center;
+}
