@@ -28,91 +28,91 @@ body {
     display: flex;
 }
 
-@function brightness($color) {
-    @return ((red($color) * .299) + (green($color) * .587) + (blue($color) * .114)) / 255 * 100%;
-}
+// @function brightness($color) {
+//     @return ((red($color) * .299) + (green($color) * .587) + (blue($color) * .114)) / 255 * 100%;
+// }
 
-@function contrast($color, $dark, $light) {
-    $color-brightness: brightness($color);
-    $light-brightness: brightness($light);
-    $dark-brightness: brightness($dark);
-    @return if(abs($color-brightness - $light-brightness) > abs($color-brightness - $dark-brightness), $light, $dark);
-}
+// @function contrast($color, $dark, $light) {
+//     $color-brightness: brightness($color);
+//     $light-brightness: brightness($light);
+//     $dark-brightness: brightness($dark);
+//     @return if(abs($color-brightness - $light-brightness) > abs($color-brightness - $dark-brightness), $light, $dark);
+// }
 
-@each $colorname,
-$color in $colors {
-    .#{$colorname} {
-        background: $color;
-        color: contrast($color, $background, $foreground);
-        &:hover:not([disabled]) {
-            background: lighten($color, 5%);
-        }
-        &:active:not([disabled]) {
-            background: darken($color, 15%);
-        }
-        &.text {
-            background-color: $background;
-            color: $color;
-        }
-        @each $toneName,
-        $baseColor in (light: #bbb, dim: #444, dark: #000) {
-            $toneColor: mix($baseColor, $color, 40%);
-            &.#{$toneName} {
-                background-color: $toneColor;
-                color: contrast($toneColor, $background, $foreground);
-                &:hover:not([disabled]) {
-                    background: lighten($toneColor, 5%);
-                }
-                &:active:not([disabled]) {
-                    background: darken($toneColor, 15%);
-                }
-                &.text {
-                    background: $background;
-                    color: $toneColor;
-                }
-            }
-        }
-    }
-}
+// @each $colorname,
+// $color in $colors {
+//     .#{$colorname} {
+//         background: $color;
+//         color: contrast($color, $background, $foreground);
+//         &:hover:not([disabled]) {
+//             background: lighten($color, 5%);
+//         }
+//         &:active:not([disabled]) {
+//             background: darken($color, 15%);
+//         }
+//         &.text {
+//             background-color: $background;
+//             color: $color;
+//         }
+//         @each $toneName,
+//         $baseColor in (light: #bbb, dim: #444, dark: #000) {
+//             $toneColor: mix($baseColor, $color, 40%);
+//             &.#{$toneName} {
+//                 background-color: $toneColor;
+//                 color: contrast($toneColor, $background, $foreground);
+//                 &:hover:not([disabled]) {
+//                     background: lighten($toneColor, 5%);
+//                 }
+//                 &:active:not([disabled]) {
+//                     background: darken($toneColor, 15%);
+//                 }
+//                 &.text {
+//                     background: $background;
+//                     color: $toneColor;
+//                 }
+//             }
+//         }
+//     }
+// }
 
-@each $colorname,
-$color in $colors {
-    .blink-#{$colorname} {
-        animation: blink-bg-#{$colorname} 1s steps(1) infinite;
-        &.text {
-            animation: blink-fg-#{$colorname} 1s steps(1) infinite;
-        }
-    }
-    @keyframes blink-bg-#{$colorname} {
-        50% {
-            background: $color;
-            color: contrast($color, $background, $foreground);
-        }
-    }
-    @keyframes blink-fg-#{$colorname} {
-        50% {
-            color: $color;
-        }
-    }
-    @each $toneName,
-    $baseColor in (light: #bbb, dim: #444, dark: #000) {
-        $toneColor: mix($baseColor, $color, 40%);
-        .blink-#{$toneName}-#{$colorname} {
-            animation: blink-bg-#{$toneName}-#{$colorname} 1s steps(1) infinite;
-            &.text {
-                animation: blink-fg-#{$toneName}-#{$colorname} 1s steps(1) infinite;
-            }
-        }
-        @keyframes blink-bg-#{$toneName}-#{$colorname} {
-            50% {
-                background: $toneColor;
-                color: contrast($toneColor, $background, $foreground);
-            }
-        }
-        @keyframes blink-fg-#{$toneName}-#{$colorname} {
-            50% {
-                color: $toneColor;
-            }
-        }
-    }
-}
+// @each $colorname,
+// $color in $colors {
+//     .blink-#{$colorname} {
+//         animation: blink-bg-#{$colorname} 1s steps(1) infinite;
+//         &.text {
+//             animation: blink-fg-#{$colorname} 1s steps(1) infinite;
+//         }
+//     }
+//     @keyframes blink-bg-#{$colorname} {
+//         50% {
+//             background: $color;
+//             color: contrast($color, $background, $foreground);
+//         }
+//     }
+//     @keyframes blink-fg-#{$colorname} {
+//         50% {
+//             color: $color;
+//         }
+//     }
+//     @each $toneName,
+//     $baseColor in (light: #bbb, dim: #444, dark: #000) {
+//         $toneColor: mix($baseColor, $color, 40%);
+//         .blink-#{$toneName}-#{$colorname} {
+//             animation: blink-bg-#{$toneName}-#{$colorname} 1s steps(1) infinite;
+//             &.text {
+//                 animation: blink-fg-#{$toneName}-#{$colorname} 1s steps(1) infinite;
+//             }
+//         }
+//         @keyframes blink-bg-#{$toneName}-#{$colorname} {
+//             50% {
+//                 background: $toneColor;
+//                 color: contrast($toneColor, $background, $foreground);
+//             }
+//         }
+//         @keyframes blink-fg-#{$toneName}-#{$colorname} {
+//             50% {
+//                 color: $toneColor;
+//             }
+//         }
+//     }
+// }

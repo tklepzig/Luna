@@ -8,7 +8,7 @@ export interface ButtonProps {
 
 export default class Button extends React.Component<ButtonProps, any> {
     public static defaultProps: Partial<ButtonProps> = {
-        color: "blue"
+        color: ""
     };
 
     private pressEvent: string;
