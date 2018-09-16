@@ -31,39 +31,15 @@ SCRIPT_DIR="${SCRIPT_DIR%/*}"
 ARTIFACTS=$SCRIPT_DIR/../artifacts
 KUDU_SYNC_CMD=${KUDU_SYNC_CMD//\"}
 
-DEPLOYMENT_SOURCE=$DEPLOYMENT_SOURCE/hub/dist
+DEPLOYMENT_SOURCE=$DEPLOYMENT_SOURCE/dist
 
-if [[ ! -n "$DEPLOYMENT_SOURCE" ]]; then
-  DEPLOYMENT_SOURCE=$SCRIPT_DIR
-fi
-
-if [[ ! -n "$NEXT_MANIFEST_PATH" ]]; then
-  NEXT_MANIFEST_PATH=$ARTIFACTS/manifest
-
-  if [[ ! -n "$PREVIOUS_MANIFEST_PATH" ]]; then
-    PREVIOUS_MANIFEST_PATH=$NEXT_MANIFEST_PATH
-  fi
-fi
-
-if [[ ! -n "$DEPLOYMENT_TARGET" ]]; then
-  DEPLOYMENT_TARGET=$ARTIFACTS/wwwroot
-else
-  KUDU_SERVICE=true
-fi
 
 if [[ ! -n "$KUDU_SYNC_CMD" ]]; then
   # Install kudu sync
   echo Installing Kudu Sync
   npm install kudusync -g --silent
   exitWithMessageOnError "npm failed"
-
-  if [[ ! -n "$KUDU_SERVICE" ]]; then
-    # In case we are running locally this is the correct location of kuduSync
-    KUDU_SYNC_CMD=kuduSync
-  else
-    # In case we are running on kudu service this is the correct location of kuduSync
-    KUDU_SYNC_CMD=$APPDATA/npm/node_modules/kuduSync/bin/kuduSync
-  fi
+  KUDU_SYNC_CMD=kuduSync
 fi
 
 # Node Helpers
@@ -96,17 +72,11 @@ selectNodeVersion () {
   fi
 }
 
-##################################################################################################################################
-# Deployment
-# ----------
-
 echo Handling node.js deployment.
 
-# 1. KuduSync
-if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
-  "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
-  exitWithMessageOnError "Kudu Sync failed"
-fi
+# 1. KuduSync (copy files)
+"$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
+exitWithMessageOnError "Kudu Sync failed"
 
 # 2. Select node version
 selectNodeVersion
@@ -118,22 +88,12 @@ eval $NPM_CMD install yarn -g
 # 4. Install npm packages
 if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
   cd "$DEPLOYMENT_TARGET"
-  eval yarn install --production
+  eval /d/local/AppData/npm/yarn install --production
   exitWithMessageOnError "npm failed"
   cd - > /dev/null
 fi
 
-##################################################################################################################################
-
-# Post deployment stub
-cd "$DEPLOYMENT_SOURCE"
-git rev-parse --short HEAD > "$DEPLOYMENT_TARGET/public/version.txt"
-
-if [[ -n "$POST_DEPLOYMENT_ACTION" ]]; then
-  POST_DEPLOYMENT_ACTION=${POST_DEPLOYMENT_ACTION//\"}
-  cd "${POST_DEPLOYMENT_ACTION_DIR%\\*}"
-  "$POST_DEPLOYMENT_ACTION"
-  exitWithMessageOnError "post deployment action failed"
-fi
+#cd "$DEPLOYMENT_SOURCE"
+#git rev-parse --short HEAD > "$DEPLOYMENT_TARGET/public/version.txt"
 
 echo "Finished successfully."
