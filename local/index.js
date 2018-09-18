@@ -20,6 +20,8 @@ if (/^win/.test(platform)) {
     luna = require('./windows/interaction.js');
 } else if (/^linux/.test(platform)) {
     luna = require('./linux/interaction.js');
+} else if (/^darwin/.test(platform)) {
+    luna = require('./macos/interaction.js');
 } else {
     console.log('Unsupported operating system.');
     process.exit(1);
