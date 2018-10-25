@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "edge": "^6.5.1",
+    "robotjs": "^0.5.1",
     "socket.io-client": "^1.7.3"
   }
 }

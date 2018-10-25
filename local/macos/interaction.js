@@ -1,6 +1,7 @@
 'use strict';
 
 var exec = require('child_process').exec;
+var robot = require("robotjs");
 
 module.exports.media = {
     playPause: function () {
@@ -37,50 +38,22 @@ module.exports.keyboard = {
 
 module.exports.mouse = {
     move: function (offset) {
-        exec('xdotool mousemove_relative -- ' + offset.x + ' ' + offset.y);
+        var mouse = robot.getMousePos();
+        robot.moveMouse(mouse.x + offset.x, mouse.y + offset.y);
     },
     wheel: function (delta) {
-        if (delta > 0) {
-            for (var i = 0; i < delta / 60; i++) {
-                exec('xdotool click --clearmodifiers 4');
-            }
-        }
-        else {
-            for (var i = 0; i < delta * -1 / 60; i++) {
-                exec('xdotool click --clearmodifiers 5');
-            }
-        }
+        robot.scrollMouse(0, delta);
     },
     hWheel: function (delta) {
-        if (delta > 0) {
-            for (var i = 0; i < delta / 60; i++) {
-                exec('xdotool click --clearmodifiers 6');
-            }
-        }
-        else {
-            for (var i = 0; i < delta * -1 / 60; i++) {
-                exec('xdotool click --clearmodifiers 7');
-            }
-        }
+        robot.scrollMouse(delta, 0);
     },
     leftClick: function () {
-        exec('xdotool click 1');
+        robot.mouseClick("left");
     },
     rightClick: function () {
-        exec('xdotool click 3');
+        robot.mouseClick("right");
     },
     middleClick: function () {
-        exec('xdotool click 2');
+        robot.mouseClick("middle");
     }
 };
-
-
-//lock workstation: gnome-screensaver-command -l
-//start screensaver: gnome-screensaver-command -a
-//stop screensaver: gnome-screensaver-command -d
-
-//mouse: xdotool click 1/2/3, xdotool mousemove x y
-//type text: xdotool type '<text>'
-//scroll up: xdotool click --clearmodifiers 4
-//scroll down: xdotool click --clearmodifiers 5
-//--clearmodifiers: löscht alle modifiers beim Ausführen (riehenfolge ist wichtig!)
