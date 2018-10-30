@@ -1,5 +1,6 @@
 import * as React from "react";
 import luna, { MouseButton, MouseWheelDirection } from "../services/Luna";
+import Vibration from "../services/Vibration";
 
 export default class Touchpad extends React.Component {
     private clickPoint: { x: any; y: any; };
@@ -69,12 +70,15 @@ export default class Touchpad extends React.Component {
             && Math.abs(this.clickPoint.y - this.downPoint.y) < 2) {
             switch (this.touchCount) {
                 case 1:
+                    Vibration.vibrate();
                     luna.sendMouseClick(MouseButton.Left);
                     break;
                 case 2:
+                    Vibration.vibrate();
                     luna.sendMouseClick(MouseButton.Right);
                     break;
                 case 3:
+                    Vibration.vibrate();
                     luna.sendMouseClick(MouseButton.Middle);
                     break;
             }
