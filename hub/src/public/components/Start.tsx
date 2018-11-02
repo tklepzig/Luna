@@ -1,26 +1,33 @@
 import * as React from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
+import styled from "styled-components";
 import fullscreen from "../services/Fullscreen";
 import luna from "../services/Luna";
 import { Footer } from "./Footer";
 import NavButton from "./NavButton";
-import { Panel } from "./Panel";
 
-class Start extends React.Component<RouteComponentProps<any>> {
+const Container = styled.section`
+    display: grid;
+    grid-template: auto auto 1fr auto / 1fr;
+    grid-gap: 1rem 0;
+    padding: 1rem;
+`;
 
-    constructor() {
-        super();
+class Start extends React.Component<RouteComponentProps> {
+
+    constructor(props: RouteComponentProps) {
+        super(props);
         this.navigate = this.navigate.bind(this);
     }
 
     public render() {
         return (
-            <Panel>
-                <NavButton flex={1} path="/pres" onNavigate={this.navigate}>Presentation</NavButton>
-                <NavButton flex={1} path="/mouse" onNavigate={this.navigate}>Touchpad</NavButton>
-                <div style={{ flex: 3 }} />
+            <Container>
+                <NavButton path="/pres" onNavigate={this.navigate}>Presentation</NavButton>
+                <NavButton path="/mouse" onNavigate={this.navigate}>Touchpad</NavButton>
+                <div />
                 <Footer>Connection ID: {luna.ConnectionId}</Footer>
-            </Panel>
+            </Container>
         );
     }
 

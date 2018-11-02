@@ -1,10 +1,9 @@
 import * as React from "react";
-import Button from "./Button";
+import { Button } from "./Button";
 
 export interface INavButtonProps {
     path: string;
     onNavigate: (path: string) => void;
-    flex?: number;
     color?: string;
 }
 
@@ -18,7 +17,6 @@ export default class NavButton extends React.Component<INavButtonProps> {
         return (
             <Button
                 color={this.props.color}
-                flex={this.props.flex}
                 onPress={this.navigate}
             >
                 {this.props.children}

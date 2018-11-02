@@ -1,20 +1,33 @@
 import * as React from "react";
+import styled from "styled-components";
 import luna, { MouseButton, MouseWheelDirection } from "../services/Luna";
 import Vibration from "../services/Vibration";
 
-export default class Touchpad extends React.Component {
-    private clickPoint: { x: any; y: any; };
-    private touchCount: number;
+const StyledTouchpad = styled.section`
+    background: url("assets/grid.png");
+    background-position: center;
+    flex: 1;
+    overflow: hidden;
+    touch-action: none;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+`;
+
+export class Touchpad extends React.Component {
+    private clickPoint?: { x: any; y: any; };
+    private touchCount?: number;
     private downPoint?: { x: any; y: any; };
-    private firstMove: boolean;
+    private firstMove?: boolean;
     private getTouchCount: (e: any) => any;
     private getMousePosition: (e: any) => { x: any; y: any; };
     private moveEvent: string;
     private upEvent: string;
     private downEvent: string;
 
-    constructor() {
-        super();
+    constructor(props: {}) {
+        super(props);
 
         this.tapDown = this.tapDown.bind(this);
         this.tapUp = this.tapUp.bind(this);
@@ -46,7 +59,7 @@ export default class Touchpad extends React.Component {
         const moveEventAttribute = { [this.moveEvent]: this.tapMove };
 
         return (
-            <div className="touchpad" {...downEventAttribute} {...upEventAttribute} {...moveEventAttribute} />
+            <StyledTouchpad {...downEventAttribute} {...upEventAttribute} {...moveEventAttribute} />
         );
     }
 

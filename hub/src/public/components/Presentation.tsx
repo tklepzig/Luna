@@ -1,12 +1,17 @@
 import * as React from "react";
+import styled from "styled-components";
 import KeyboardButton from "./KeyboardButton";
-import { Panel } from "./Panel";
 
-const Presentation: React.SFC = () => (
-    <Panel>
-        <KeyboardButton color="dim orange" flex={1} keyString="P">Previous</KeyboardButton>
-        <KeyboardButton color="orange" flex={5} keyString="N">Next</KeyboardButton>
-    </Panel>
+const Container = styled.section`
+    display: grid;
+    grid-template: 1fr 3fr / 1fr;
+    grid-gap: 1rem 0;
+    padding: 1rem;
+`;
+
+export const Presentation: React.SFC = () => (
+    <Container>
+        <KeyboardButton color="dim orange" keyString="P">Previous</KeyboardButton>
+        <KeyboardButton color="orange" keyString="N">Next</KeyboardButton>
+    </Container>
 );
-
-export default Presentation;
