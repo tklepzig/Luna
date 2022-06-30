@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="theme-color" content="black">
-    <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=10.0, width=device-width" />
-    <base href="/">
-    <title>Luna</title>
-    <link rel="manifest" href="manifest.json">
-</head>
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="viewport"
+      content="user-scalable=yes, initial-scale=1.0, maximum-scale=10.0, width=device-width"
+    />
+    <base href="/" />
+    <title>App</title>
+    <link rel="manifest" href="manifest.json" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("service-worker.js").then(
+            function (registration) {},
+            function (err) {
+              console.log("ServiceWorker registration failed: ", err);
+            }
+          );
+        });
+      }
+    </script>
+  </head>
 
-<body ontouchstart>
+  <body>
     <div id="root"></div>
-</body>
-
+  </body>
 </html>

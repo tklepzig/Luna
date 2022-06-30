@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "strict": true,
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "paths": { "shared": ["shared"] }
+  }
+}
