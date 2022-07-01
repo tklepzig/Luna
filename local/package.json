@@ -1,12 +1,12 @@
 {
-  "name": "luna",
-  "version": "1.0.0",
+  "name": "luna-local",
+  "version": "2.0.0",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "edge": "^6.5.1",
-    "robotjs": "^0.5.1",
-    "socket.io-client": "^1.7.3"
+    "edge": "^7.10.1",
+    "eventsource": "^2.0.2",
+    "robotjs": "^0.6.0"
   }
 }

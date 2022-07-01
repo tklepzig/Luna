@@ -2,6 +2,6 @@
   "name": "luna",
   "version": "2.0.0",
   "scripts": {
-    "deploy": "echo TODO"
+    "deploy": "git subtree push --prefix hub heroku master"
   }
 }
