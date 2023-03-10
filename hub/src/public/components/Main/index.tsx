@@ -38,8 +38,7 @@ export const Main = () => {
           <Command
             className="shade2"
             onTap={() => {
-              console.dir("next");
-              socket.emit("keyboard-pressKey", "123456", "N", null);
+              socket.emit("keyboard-pressKey", connectionId, "N", null);
             }}
           >
             Next
@@ -47,8 +46,7 @@ export const Main = () => {
           <button
             className="command shade1"
             onClick={() => {
-              console.dir("prev");
-              socket.emit("keyboard-pressKey", "123456", "P", null);
+              socket.emit("keyboard-pressKey", connectionId, "P", null);
             }}
           >
             Previous
@@ -56,7 +54,7 @@ export const Main = () => {
           <button
             className="command"
             onClick={() => {
-              socket.emit("keyboard-pressKey", "123456", "F", null);
+              socket.emit("keyboard-pressKey", connectionId, "F", null);
             }}
           >
             Fullscreen

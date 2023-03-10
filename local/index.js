@@ -38,7 +38,6 @@ source.addEventListener("welcome", ({ data }) => {
 });
 
 source.addEventListener("keyboard-pressKey", (message) => {
-  console.dir(message);
   const { id, key, modifiers } = JSON.parse(message.data);
 
   if (id != connectionId) {
