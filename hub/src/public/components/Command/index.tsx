@@ -3,10 +3,10 @@
 import { HTMLAttributes } from "react";
 import { Point, tapEvents } from "../../TapEvents";
 
-interface Props extends HTMLAttributes<HTMLButtonElement> {
+interface Props extends Omit<HTMLAttributes<HTMLButtonElement>, "onClick"> {
   onTap?: () => void;
   type?: "submit" | "reset" | "button";
-  className: string;
+  className?: string;
 }
 export const Command = ({
   onTap,

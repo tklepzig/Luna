@@ -43,28 +43,27 @@ export const Main = () => {
           >
             Next
           </Command>
-          <button
-            className="command shade1"
-            onClick={() => {
+          <Command
+            className="shade1"
+            onTap={() => {
               socket.emit("keyboard-pressKey", connectionId, "P", null);
             }}
           >
             Previous
-          </button>
-          <button
-            className="command"
-            onClick={() => {
+          </Command>
+          <Command
+            onTap={() => {
               socket.emit("keyboard-pressKey", connectionId, "F", null);
             }}
           >
             Fullscreen
-          </button>
+          </Command>
         </CommandBar>
       </article>
       <footer className="command-bar">
-        <button
-          className="command shade2"
-          onClick={() => {
+        <Command
+          className="shade2"
+          onTap={() => {
             enterFullscreen();
           }}
         />

@@ -13,11 +13,4 @@ export const CommandBar = styled.div.attrs({
   className: "command-bar vertical",
 })`
   grid: 6fr 2fr 1fr / 1fr;
-
-  && {
-    width: auto;
-    > .command {
-      width: auto;
-    }
-  }
 `;
