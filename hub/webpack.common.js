@@ -2,90 +2,110 @@ const path = require("path");
 const nodeExternals = require("webpack-node-externals");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 const server = {
-    entry: "./src/server/index.ts",
+  entry: "./src/server/index.ts",
 
-    output: {
-        filename: "index.js",
-        path: __dirname + "/dist/server"
-    },
+  output: {
+    filename: "index.js",
+    path: path.resolve(__dirname, "dist/server"),
+  },
 
-    resolve: {
-        extensions: [".ts", ".js"]
-    },
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
 
-    target: "node",
+  target: "node",
 
-    node: { __dirname: false },
+  node: { __dirname: false },
 
-    externals: [nodeExternals()],
+  externals: [nodeExternals()],
 
-    module: {
-        rules: [
-            {
-                test: /\.ts$/,
-                exclude: /node_modules/,
-                loader: "awesome-typescript-loader"
-            }
-        ]
-    },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loader: "ts-loader",
+      },
+    ],
+  },
 
-    plugins: [
-        new CleanWebpackPlugin(["./dist"]),
-        new CopyWebpackPlugin([
-            { from: "./package.json", to: ".." },
-            { from: "./yarn.lock", to: ".." },
-            { from: "./web.config", to: ".." }
-        ])
-    ]
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "./package.json",
+          to: "..",
+          transform: (content) => {
+            var packageJson = JSON.parse(content.toString());
+            packageJson.scripts.start = "node server/index.js";
+            delete packageJson.devDependencies;
+            delete packageJson.jest;
+            return Buffer.from(JSON.stringify(packageJson));
+          },
+        },
+        {
+          from: "./package-lock.json",
+          to: "..",
+        },
+      ],
+    }),
+  ],
 };
 
 const client = {
-    entry: "./src/public/app.tsx",
-    output: {
-        filename: "app.[chunkhash].js",
-        path: __dirname + "/dist/public"
-    },
+  entry: "./src/public/index.tsx",
+  output: {
+    filename: "app.[chunkhash].js",
+    path: path.resolve(__dirname, "dist/public"),
+  },
 
-    resolve: {
-        extensions: [".ts", ".tsx", ".js", ".json"]
-    },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".json"],
+  },
 
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                exclude: /node_modules/,
-                loader: "awesome-typescript-loader"
-            }
-        ]
-    },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        loader: "ts-loader",
+      },
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+    ],
+  },
 
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: "./src/public/index.html",
-            inject: "body"
-        }),
-        new CopyWebpackPlugin([
-            {
-                from: "./src/public/assets",
-                to: "assets"
-            },
-            { from: "./src/public/manifest.json" }
-        ])
-    ]
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/public/index.html",
+      inject: "body",
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "./src/public/assets",
+          to: "assets",
+          noErrorOnMissing: true,
+        },
+        { from: "./src/public/service-worker.js", noErrorOnMissing: true },
+        { from: "./src/public/manifest.json", noErrorOnMissing: true },
+        { from: "./src/public/favicon.ico", noErrorOnMissing: true },
+      ],
+    }),
+  ],
 
-    // // When importing a module whose path matches one of the following, just
-    // // assume a corresponding global variable exists and use that instead.
-    // // This is important because it allows us to avoid bundling all of our
-    // // dependencies, which allows browsers to cache those libraries between builds.
-    // externals: {
-    //     "react": "React",
-    //     "react-dom": "ReactDOM"
-    // }
+  // // When importing a module whose path matches one of the following, just
+  // // assume a corresponding global variable exists and use that instead.
+  // // This is important because it allows us to avoid bundling all of our
+  // // dependencies, which allows browsers to cache those libraries between builds.
+  // externals: {
+  //     "react": "React",
+  //     "react-dom": "ReactDOM"
+  // }
 };
 
-const common = { server, client };
-module.exports = common;
+module.exports = [server, client];

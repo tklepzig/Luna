@@ -1,14 +1,22 @@
-const merge = require("webpack-merge");
-const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
-const common = require("./webpack.common");
+const { merge } = require("webpack-merge");
+const [commonServer, commonClient] = require("./webpack.common");
+const TerserPlugin = require("terser-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const server = {
-    plugins: [new UglifyJSPlugin()]
+  mode: "production",
+  optimization: {
+    minimizer: [new TerserPlugin()],
+  },
+  plugins: [new CleanWebpackPlugin()],
 };
 
 const client = {
-    plugins: [new UglifyJSPlugin()]
+  mode: "production",
+  optimization: {
+    minimizer: [new TerserPlugin()],
+  },
+  plugins: [new CleanWebpackPlugin()],
 };
 
-var prod = { server, client };
-module.exports = merge.multiple(common, prod);
+module.exports = [merge(commonServer, server), merge(commonClient, client)];
