@@ -25,10 +25,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: cd hub
       - run: npm ci
+        working-directory: hub
       - run: npm run build
-      - run: cd -
+        working-directory: hub
       - name: Push to luna-hub
         uses: cpina/github-action-push-to-another-repository@main
         env:
