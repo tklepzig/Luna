@@ -1,7 +1,4 @@
 {
   "name": "luna",
-  "version": "2.0.0",
-  "scripts": {
-    "deploy": "git subtree push --prefix hub heroku master"
-  }
+  "version": "2.0.0"
 }
