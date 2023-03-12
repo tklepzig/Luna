@@ -40,6 +40,8 @@ const server = {
           transform: (content) => {
             var packageJson = JSON.parse(content.toString());
             packageJson.scripts.start = "node server/index.js";
+            packageJson.main = "server/index.js";
+            packageJson.build = "";
             delete packageJson.devDependencies;
             delete packageJson.jest;
             return Buffer.from(JSON.stringify(packageJson));
