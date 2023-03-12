@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 "use strict";
 
 // Run with: node index.js http://localhost:8080/connect 123456

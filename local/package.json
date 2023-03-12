@@ -1,9 +1,7 @@
 {
-  "name": "luna-local",
+  "name": "luna-receiver",
   "version": "2.0.0",
-  "scripts": {
-    "start": "node index.js"
-  },
+  "bin": "index.js",
   "dependencies": {
     "edge": "^7.10.1",
     "eventsource": "^2.0.2",
