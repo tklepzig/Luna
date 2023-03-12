@@ -30,7 +30,7 @@ app.post("/key", ({ body: { id, key, modifiers } }, response) => {
   response.sendStatus(200);
 });
 
-app.get("/blubb", (request, response) => {
+app.get("/connect", (request, response) => {
   const headers = {
     "Content-Type": "text/event-stream",
     Connection: "keep-alive",

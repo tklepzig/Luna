@@ -1,6 +1,6 @@
 "use strict";
 
-// Run with: node index.js http://localhost:8080/blubb 123456
+// Run with: node index.js http://localhost:8080/connect 123456
 
 if (process.argv.length < 4) {
   console.log("Please supply hub url and connection id!");
