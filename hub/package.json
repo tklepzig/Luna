@@ -1,12 +1,12 @@
 {
   "name": "luna-hub",
   "version": "2.0.0",
-  "main": "server/index.js",
+  "main": "dist/server/index.js",
   "scripts": {
     "build:dev": "webpack --config webpack.dev.js -w",
     "build": "webpack --config webpack.prod.js",
     "start:dev": "nodemon",
-    "start": "node server/index.js",
+    "start": "node dist/server/index.js",
     "postinstall": "rm -rf node_modules/@types/react-native"
   },
   "scriptsComments": {
