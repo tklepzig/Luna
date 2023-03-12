@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
 import { enterFullscreen } from "../../fullscreen";
 import { Command } from "../Command";
 import { Panel, CommandBar } from "./styles";
-
-const socket = io();
 
 const generateId = () => {
   let id = "";
@@ -38,7 +35,11 @@ export const Main = () => {
           <Command
             className="shade2"
             onTap={() => {
-              socket.emit("keyboard-pressKey", connectionId, "N", null);
+              fetch(`/key`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: connectionId, key: "N" }),
+              });
             }}
           >
             Next
@@ -46,14 +47,22 @@ export const Main = () => {
           <Command
             className="shade1"
             onTap={() => {
-              socket.emit("keyboard-pressKey", connectionId, "P", null);
+              fetch(`/key`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: connectionId, key: "P" }),
+              });
             }}
           >
             Previous
           </Command>
           <Command
             onTap={() => {
-              socket.emit("keyboard-pressKey", connectionId, "F", null);
+              fetch(`/key`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: connectionId, key: "F" }),
+              });
             }}
           >
             Fullscreen

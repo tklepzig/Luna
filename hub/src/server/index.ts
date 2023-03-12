@@ -1,7 +1,6 @@
 import { resolve } from "path";
 import http from "http";
 import express, { json, urlencoded } from "express";
-import { Server } from "socket.io";
 import cors from "cors";
 
 const port = 8080;
@@ -11,66 +10,24 @@ app.use(json());
 app.use(urlencoded({ extended: false }));
 
 const httpServer = http.createServer(app);
-const socketIoServer = new Server(httpServer);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const clients: any[] = [];
-socketIoServer.on("connection", (socket) => {
-  const clientIp = socket.request.connection.remoteAddress;
-  // tslint:disable-next-line:no-console
-  console.log(`Client connected:\t${clientIp}`);
 
-  // tslint:disable-next-line:no-console
-  socket.on("disconnect", () =>
-    console.log(`Client disconnected:\t${clientIp}`)
-  );
-  //socket.on("ping", (pong) => pong());
+app.post("/key", ({ body: { id, key, modifiers } }, response) => {
+  console.dir(`press key: ${id}, ${key}, ${modifiers}`);
 
-  //socket.on("media-playPause", (id) =>
-  //socket.broadcast.emit("media-playPause", id)
-  //);
-  //socket.on("media-volumeUp", (id) =>
-  //socket.broadcast.emit("media-volumeUp", id)
-  //);
-  //socket.on("media-volumeDown", (id) =>
-  //socket.broadcast.emit("media-volumeDown", id)
-  //);
-  socket.on(
-    "keyboard-pressKey",
-    (id, key, modifiers) => {
-      console.dir(`press key: ${id}, ${key}, ${modifiers}`);
+  clients.forEach((client) => {
+    client.response.write(
+      `event: keyboard-pressKey\ndata: ${JSON.stringify({
+        id,
+        key,
+        modifiers,
+      })}\n\n`
+    );
+  });
 
-      clients.forEach((client) => {
-        client.response.write(
-          `event: keyboard-pressKey\ndata: ${JSON.stringify({
-            id,
-            key,
-            modifiers,
-          })}\n\n`
-        );
-      });
-    }
-
-    //socket.broadcast.emit("keyboard-pressKey", id, key, modifiers)
-  );
-  //socket.on("mouse-move", (id, offset) =>
-  //socket.broadcast.emit("mouse-move", id, offset)
-  //);
-  //socket.on("mouse-wheel", (id, delta) =>
-  //socket.broadcast.emit("mouse-wheel", id, delta)
-  //);
-  //socket.on("mouse-hWheel", (id, delta) =>
-  //socket.broadcast.emit("mouse-hWheel", id, delta)
-  //);
-  //socket.on("mouse-leftClick", (id) =>
-  //socket.broadcast.emit("mouse-leftClick", id)
-  //);
-  //socket.on("mouse-rightClick", (id) =>
-  //socket.broadcast.emit("mouse-rightClick", id)
-  //);
-  //socket.on("mouse-middleClick", (id) =>
-  //socket.broadcast.emit("mouse-middleClick", id)
-  //);
+  response.sendStatus(200);
 });
 
 app.get("/blubb", (request, response) => {
