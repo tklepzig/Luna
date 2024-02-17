@@ -33,6 +33,7 @@ export const Main = () => {
       <article>
         <CommandBar>
           <Command
+            style={{ gridColumn: "span 2" }}
             className="shade2"
             onTap={() => {
               fetch(`/key`, {
@@ -45,6 +46,7 @@ export const Main = () => {
             Next
           </Command>
           <Command
+            style={{ gridColumn: "span 2" }}
             className="shade1"
             onTap={() => {
               fetch(`/key`, {
@@ -66,6 +68,17 @@ export const Main = () => {
             }}
           >
             Fullscreen
+          </Command>
+          <Command
+            onTap={() => {
+              fetch(`/key`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: connectionId, key: "1" }),
+              });
+            }}
+          >
+            Keep Alive
           </Command>
         </CommandBar>
       </article>

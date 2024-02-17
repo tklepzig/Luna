@@ -12,5 +12,5 @@ export const Panel = styled.div.attrs({ className: "panel" })`
 export const CommandBar = styled.div.attrs({
   className: "command-bar vertical",
 })`
-  grid: 6fr 2fr 1fr / 1fr;
+  grid: 5fr 2fr 2fr / 1fr 1fr;
 `;
