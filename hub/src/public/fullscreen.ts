@@ -7,15 +7,15 @@ declare global {
 }
 
 export const enterFullscreen = () => {
-  const body = document.body;
+  const root = document.documentElement;
 
-  if (body.requestFullscreen) {
-    body.requestFullscreen();
-  } else if (body.webkitRequestFullscreen) {
-    body.webkitRequestFullscreen();
-  } else if (body.msRequestFullscreen) {
-    body.msRequestFullscreen();
-  } else if (body.mozRequestFullScreen) {
-    body.mozRequestFullScreen();
+  if (root.requestFullscreen) {
+    root.requestFullscreen();
+  } else if (root.webkitRequestFullscreen) {
+    root.webkitRequestFullscreen();
+  } else if (root.msRequestFullscreen) {
+    root.msRequestFullscreen();
+  } else if (root.mozRequestFullScreen) {
+    root.mozRequestFullScreen();
   }
 };
