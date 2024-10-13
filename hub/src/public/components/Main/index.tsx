@@ -28,70 +28,76 @@ export const Main = () => {
   }, []);
 
   return (
-    <Panel>
-      <header />
-      <article>
-        <CommandBar>
-          <Command
-            style={{ gridColumn: "span 2" }}
-            className="shade2"
-            onTap={() => {
-              fetch(`/key`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: connectionId, key: "N" }),
-              });
-            }}
-          >
-            Next
-          </Command>
-          <Command
-            style={{ gridColumn: "span 2" }}
-            className="shade1"
-            onTap={() => {
-              fetch(`/key`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: connectionId, key: "P" }),
-              });
-            }}
-          >
-            Previous
-          </Command>
-          <Command
-            onTap={() => {
-              fetch(`/key`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: connectionId, key: "F" }),
-              });
-            }}
-          >
-            Fullscreen
-          </Command>
-          <Command
-            onTap={() => {
-              fetch(`/key`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: connectionId, key: "1" }),
-              });
-            }}
-          >
-            Keep Alive
-          </Command>
-        </CommandBar>
-      </article>
-      <footer className="command-bar">
+    <div style={{ display: "grid", gap: "1rem", gridTemplateRows: "1fr auto" }}>
+      <Panel>
+        <header />
+        <article>
+          <CommandBar>
+            <div className="spacer" style={{ gridColumn: "span 2" }} />
+            <Command
+              style={{ flex: 3 }}
+              className="shade2"
+              onTap={() => {
+                fetch(`/key`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ id: connectionId, key: "N" }),
+                });
+              }}
+            >
+              Next
+            </Command>
+            <Command
+              style={{ flex: 1 }}
+              className="shade1"
+              onTap={() => {
+                fetch(`/key`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ id: connectionId, key: "P" }),
+                });
+              }}
+            >
+              Previous
+            </Command>
+            <Command
+              onTap={() => {
+                fetch(`/key`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ id: connectionId, key: "F" }),
+                });
+              }}
+            >
+              Fullscreen
+            </Command>
+            <div className="spacer" style={{ gridColumn: "span 2" }} />
+          </CommandBar>
+        </article>
+        <footer>{connectionId}</footer>
+      </Panel>
+      <div className="compound-commands">
+        <div className="spacer" />
         <Command
           className="shade2"
           onTap={() => {
             enterFullscreen();
           }}
         />
-        <div className="command spacer" />
-        {connectionId}
-      </footer>
-    </Panel>
+        <Command
+          style={{ flex: 1 }}
+          onTap={() => {
+            fetch(`/key`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ id: connectionId, key: "1" }),
+            });
+          }}
+        >
+          Keep Alive
+        </Command>
+        <div className="spacer" />
+      </div>
+    </div>
   );
 };
