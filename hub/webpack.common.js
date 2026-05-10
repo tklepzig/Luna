@@ -37,14 +37,16 @@ const server = {
         {
           from: "./package.json",
           to: "..",
-          transform: (content) => {
-            var packageJson = JSON.parse(content.toString());
-            packageJson.scripts.start = "node server/index.js";
-            packageJson.scripts.build = "";
-            packageJson.main = "server/index.js";
-            delete packageJson.devDependencies;
-            delete packageJson.jest;
-            return Buffer.from(JSON.stringify(packageJson));
+          transform: {
+            transformer: (content) => {
+              const packageJson = JSON.parse(content.toString());
+              packageJson.scripts.start = "node server/index.js";
+              packageJson.scripts.build = "";
+              packageJson.main = "server/index.js";
+              delete packageJson.devDependencies;
+              delete packageJson.jest;
+              return Buffer.from(JSON.stringify(packageJson));
+            },
           },
         },
         {
